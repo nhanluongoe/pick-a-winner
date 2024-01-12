@@ -8,8 +8,8 @@ const usePrizes = () => {
     setPrizes((prizes) => [...prizes, prize]);
   };
 
-  const removePrize = (id: number) => {
-    setPrizes((prizes) => prizes.filter((prize) => prize.id !== id));
+  const removePrize = (name: string) => {
+    setPrizes((prizes) => prizes.filter((prize) => prize.name !== name));
   };
 
   return { prizes, addPrize, removePrize };

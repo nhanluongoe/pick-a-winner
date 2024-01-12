@@ -13,8 +13,8 @@ const useMembers = () => {
     setMembers((prevMembers) => [...prevMembers, ...members]);
   };
 
-  const removeMember = (id: number) => {
-    setMembers((members) => members.filter((member) => member.id !== id));
+  const removeMember = (name: string) => {
+    setMembers((members) => members.filter((member) => member.name !== name));
   };
 
   return { members, addMember, addMembers, removeMember };
