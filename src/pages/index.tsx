@@ -4,6 +4,7 @@ import useAwards from "../hooks/useAwards";
 import usePrizes from "../hooks/usePrizes";
 import { Prize } from "../models/prize";
 import { toast } from "react-stacked-toast";
+import { Link } from "react-router-dom";
 
 const DURATION = 3 * 1000;
 const INTERVAL = 50;
@@ -18,11 +19,14 @@ export const Home = () => {
   const { prizes, decreaseQuantity } = usePrizes();
   const [currentPrizeIndex, setCurrentPrizeIndex] = useState<number>(0);
   const currentPrize = prizes[currentPrizeIndex];
-  const currentPrizeAvailable = currentPrize && currentPrize.quantity <= 0;
+  const currentPrizeAvailable = currentPrize && currentPrize.quantity > 0;
 
   const intervalIdRef = useRef<number>(0);
+  const [spinning, setSpinning] = useState<boolean>(false);
 
   const handlePick = () => {
+    setSpinning(true);
+
     if (members.length === 0) {
       toast.error({
         title: "No members available!",
@@ -55,6 +59,7 @@ export const Home = () => {
   };
 
   const handleStop = () => {
+    setSpinning(false);
     clearInterval(intervalIdRef.current);
     updateMembers(currentPrize, [winnerRef.current]);
     removeMember(winnerRef.current);
@@ -62,19 +67,31 @@ export const Home = () => {
   };
 
   return (
-    <div className="flex justify-center flex-col items-center gap-48">
+    <div className="h-full flex flex-col justify-around items-center">
       <div className="text-center uppercase text-5xl text-blue-600">
-        <p className="mb-2">
-          {currentPrize?.quantity} {currentPrize?.type}
-        </p>
-        <p>{currentPrize?.name}</p>
+        {currentPrize ? (
+          <>
+            <p className="mb-2">
+              {currentPrize.quantity} {currentPrize.name}
+            </p>
+            <p>{currentPrize.type}</p>
+          </>
+        ) : (
+          <p>{"?"}</p>
+        )}
       </div>
 
-      <div className="w-1/2 flex justify-center items-center">
-        <p className="text-9xl p-5 bg-blue-200 capitalize rounded-xl text-center text-blue-600 w-full">
-          {winner || "abcd"}
+      <div className="w-3/4 flex justify-center items-center">
+        <p className="text-8xl p-5 bg-blue-200 capitalize rounded-xl text-center text-blue-600 w-full">
+          {winner || "???"}
         </p>
       </div>
+
+      {!currentPrizeAvailable && (
+        <button className="btn-primary" onClick={handleNextPrize}>
+          Next Prize
+        </button>
+      )}
 
       <div
         className="flex items-center gap-x-1 text-3xl text-blue-500 cursor-pointer"
@@ -85,21 +102,27 @@ export const Home = () => {
       </div>
 
       <div className="flex w-1/3 gap-5 justify-center">
-        <button onClick={handlePick} className="btn-primary">
+        <button
+          onClick={handlePick}
+          className="btn-primary"
+          disabled={spinning || !currentPrizeAvailable}
+        >
           Quay
         </button>
         {!autoStop && (
-          <button onClick={handleStop} className="btn-secondary">
+          <button
+            onClick={handleStop}
+            className="btn-secondary"
+            disabled={!spinning}
+          >
             Dừng
           </button>
         )}
       </div>
 
-      {currentPrizeAvailable && (
-        <button className="btn-primary" onClick={handleNextPrize}>
-          Next Prize
-        </button>
-      )}
+      <div className="fixed left-12 bottom-12 text-gray-500 underline">
+        <Link to="/configuration/prizes">Cấu hình</Link>
+      </div>
     </div>
   );
 };

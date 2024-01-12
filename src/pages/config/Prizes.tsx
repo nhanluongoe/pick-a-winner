@@ -1,5 +1,6 @@
 import usePrizes from "../../hooks/usePrizes";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { toast } from "react-stacked-toast";
 
 interface PrizeForm {
   type: string;
@@ -21,14 +22,17 @@ export const Prizes = () => {
     console.log("submit");
     console.log(data);
     addPrize(data);
+    toast.success({
+      title: "Thêm thành công",
+    });
     reset();
   };
 
   const listOfPrizes = (
     <ul>
       {prizes.map((prize) => (
-        <li key={prize.id}>
-          {prize.type} | {prize.quantity} | {prize.name}
+        <li key={prize.name}>
+          {prize.quantity} | {prize.name} | {prize.type}
         </li>
       ))}
     </ul>
@@ -36,44 +40,49 @@ export const Prizes = () => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex flex-col gap-5 justify-center items-center"
+      >
         <div>
-          <label htmlFor="type">Type: </label>
-          <input
-            type="text"
-            id="type"
-            {...register("type", {
-              required: true,
-            })}
-          ></input>
-          {errors.type && <span>This field is required</span>}
-        </div>
-
-        <div>
-          <label htmlFor="name">name: </label>
           <input
             type="text"
             id="name"
             {...register("name", {
               required: true,
             })}
+            placeholder="Tên giải thưởng"
           ></input>
           {errors.type && <span>This field is required</span>}
         </div>
 
         <div>
-          <label htmlFor="quantity">Quantity: </label>
+          <input
+            type="text"
+            id="type"
+            {...register("type", {
+              required: true,
+            })}
+            placeholder="Tên phần thưởng"
+          ></input>
+          {errors.type && <span>This field is required</span>}
+        </div>
+
+        <div>
           <input
             type="number"
             id="quantity"
             {...register("quantity", {
               required: true,
             })}
+            placeholder="Số lượng"
           ></input>
           {errors.type && <span>This field is required</span>}
         </div>
 
-        <input type="submit" />
+        <button type="submit" className="btn-primary ">
+          Thêm
+        </button>
       </form>
 
       <div>{listOfPrizes}</div>
