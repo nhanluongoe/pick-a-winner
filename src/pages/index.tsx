@@ -30,8 +30,8 @@ export const Home = () => {
     const intervalId = setInterval(() => {
       const randomIndex = Math.floor(Math.random() * members.length);
       const randomMember = members[randomIndex];
-      setWinner(randomMember.name);
       winnerRef.current = randomMember.name;
+      setWinner(randomMember.name);
     }, INTERVAL);
 
     setTimeout(() => {
@@ -55,9 +55,28 @@ export const Home = () => {
   };
 
   return (
-    <div>
-      <p>{winner}</p>
-      <button onClick={handlePick}>Start</button>
+    <div className="flex justify-center flex-col items-center gap-48">
+      <div className="text-center uppercase text-5xl text-blue-600">
+        <p className="mb-2">
+          {currentPrize?.quantity} {currentPrize?.type}
+        </p>
+        <p>{currentPrize?.name}</p>
+      </div>
+
+      <div className="w-1/2 flex justify-center items-center">
+        <p className="text-9xl p-5 bg-blue-200 capitalize rounded-xl text-center text-blue-600 w-full">
+          {winner || "abcd"}
+        </p>
+      </div>
+
+      <div className="flex w-1/3 gap-5 justify-center">
+        <button onClick={handlePick} className="btn-primary">
+          Quay
+        </button>
+        <button onClick={handlePick} className="btn-secondary">
+          Dừng
+        </button>
+      </div>
 
       {currentPrizeAvailable && (
         <button onClick={handleNextPrize}>Next Prize</button>
