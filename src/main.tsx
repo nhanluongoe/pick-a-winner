@@ -8,7 +8,7 @@ import { Prizes } from "./pages/config/Prizes";
 import { Members } from "./pages/config/Members";
 import Awards from "./pages/config/awards";
 import { Home } from "./pages";
-import { Toaster, toast } from "react-stacked-toast";
+import { Toaster } from "react-stacked-toast";
 
 const router = createBrowserRouter([
   {

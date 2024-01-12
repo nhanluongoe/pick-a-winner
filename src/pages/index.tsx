@@ -1,8 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import useMembers from "../hooks/useMembers";
 import useAwards from "../hooks/useAwards";
 import usePrizes from "../hooks/usePrizes";
-import { Prize } from "../models/prize";
 import { toast } from "react-stacked-toast";
 import { Link } from "react-router-dom";
 
