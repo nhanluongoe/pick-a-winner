@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 
 interface MenuItem {
   id: string;
@@ -31,7 +31,7 @@ export const Configuration = () => {
         <ul className="flex flex-col gap-8">
           {menu.map((item) => (
             <li key={item.id}>
-              <a href={`/configuration/${item.path}`}>{item.name}</a>
+              <Link to={item.path}>{item.name}</Link>
             </li>
           ))}
         </ul>
