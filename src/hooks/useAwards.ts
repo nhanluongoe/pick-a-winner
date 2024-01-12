@@ -1,4 +1,5 @@
 import { Award } from "../models/award";
+import { Prize } from "../models/prize";
 import useLocalStorage from "./useStorage";
 
 const useAwards = () => {
@@ -12,14 +13,19 @@ const useAwards = () => {
     setAwards((awards) => awards.filter((award) => award.prize !== prize));
   };
 
-  const updateMembers = (award: Award, members: string[]) => {
-    const updatedAwards = awards.map((a) => {
-      if (a.prize === award.prize) {
-        return { ...a, members };
-      }
-      return a;
-    });
-    setAwards(updatedAwards);
+  const updateMembers = (prize: Prize, members: string[]) => {
+    const prizeExists = awards.some((a) => a.prize === prize.name);
+    if (prizeExists) {
+      const updatedAwards = awards.map((a) => {
+        if (a.prize === prize.name) {
+          return { ...a, members: [...a.members, ...members] };
+        }
+        return a;
+      });
+      setAwards(updatedAwards);
+    } else {
+      addAward({ prize: prize.name, members });
+    }
   };
 
   return { awards, addAward, removeAward, updateMembers };

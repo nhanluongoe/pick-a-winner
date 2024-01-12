@@ -1271,6 +1271,11 @@ globby@^11.1.0:
     merge2 "^1.4.1"
     slash "^3.0.0"
 
+goober@^2.1.13:
+  version "2.1.13"
+  resolved "https://registry.yarnpkg.com/goober/-/goober-2.1.13.tgz#e3c06d5578486212a76c9eba860cbc3232ff6d7c"
+  integrity sha512-jFj3BQeleOoy7t93E9rZ2de+ScC4lQICLwiAQmKMg9F6roKGaLSHoCDYKkWlSafg138jejvq/mTdvmnwDQgqoQ==
+
 graphemer@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/graphemer/-/graphemer-1.4.0.tgz#fb2f1d55e0e3a1849aeffc90c4fa0dd53a0e66c6"
@@ -1762,6 +1767,13 @@ react-router@6.21.2:
   integrity sha512-jJcgiwDsnaHIeC+IN7atO0XiSRCrOsQAHHbChtJxmgqG2IaYQXSnhqGb5vk2CU/wBQA12Zt+TkbuJjIn65gzbA==
   dependencies:
     "@remix-run/router" "1.14.2"
+
+react-stacked-toast@^0.0.6:
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/react-stacked-toast/-/react-stacked-toast-0.0.6.tgz#e67ec6a60da45bc04c5cc2b358628c3004afe685"
+  integrity sha512-BokQ8heug4GUL6ssPqVIW/ERWjjfLoa8uU2M3AvK+iQuE0b7s7CMssEsp0X4vyFLUfY5iV8CjUTF/Rp4DRcE8Q==
+  dependencies:
+    goober "^2.1.13"
 
 react-style-singleton@^2.2.1:
   version "2.2.1"
