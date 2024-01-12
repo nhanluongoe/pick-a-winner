@@ -20,6 +20,8 @@ export const Home = () => {
   const currentPrize = prizes[currentPrizeIndex];
   const currentPrizeAvailable = currentPrize && currentPrize.quantity <= 0;
 
+  const intervalIdRef = useRef<number>(0);
+
   const handlePick = () => {
     if (members.length === 0) {
       toast.error({
@@ -27,31 +29,36 @@ export const Home = () => {
       });
       return;
     }
-    const intervalId = setInterval(() => {
+
+    intervalIdRef.current = setInterval(() => {
       const randomIndex = Math.floor(Math.random() * members.length);
       const randomMember = members[randomIndex];
       winnerRef.current = randomMember.name;
       setWinner(randomMember.name);
     }, INTERVAL);
 
-    setTimeout(() => {
-      clearInterval(intervalId);
-
-      if (currentPrize) {
-        updateMembers(currentPrize, [winnerRef.current]);
-      } else {
-        toast.error({
-          title: "No prizes available!",
-        });
-      }
-
-      removeMember(winnerRef.current);
-      decreaseQuantity(currentPrize.name);
-    }, DURATION);
+    if (autoStop) {
+      setTimeout(() => {
+        handleStop();
+      }, DURATION);
+    }
   };
 
   const handleNextPrize = () => {
     setCurrentPrizeIndex((prev) => prev + 1);
+  };
+
+  const [autoStop, setAutoStop] = useState<boolean>(false);
+
+  const handleAutoStop = () => {
+    setAutoStop((prev) => !prev);
+  };
+
+  const handleStop = () => {
+    clearInterval(intervalIdRef.current);
+    updateMembers(currentPrize, [winnerRef.current]);
+    removeMember(winnerRef.current);
+    decreaseQuantity(currentPrize.name);
   };
 
   return (
@@ -69,17 +76,29 @@ export const Home = () => {
         </p>
       </div>
 
+      <div
+        className="flex items-center gap-x-1 text-3xl text-blue-500 cursor-pointer"
+        onClick={handleAutoStop}
+      >
+        <input type="checkbox" name="auto-stop" checked={autoStop} />
+        <label htmlFor="auto-stop">Tự động dừng</label>
+      </div>
+
       <div className="flex w-1/3 gap-5 justify-center">
         <button onClick={handlePick} className="btn-primary">
           Quay
         </button>
-        <button onClick={handlePick} className="btn-secondary">
-          Dừng
-        </button>
+        {!autoStop && (
+          <button onClick={handleStop} className="btn-secondary">
+            Dừng
+          </button>
+        )}
       </div>
 
       {currentPrizeAvailable && (
-        <button onClick={handleNextPrize}>Next Prize</button>
+        <button className="btn-primary" onClick={handleNextPrize}>
+          Next Prize
+        </button>
       )}
     </div>
   );
