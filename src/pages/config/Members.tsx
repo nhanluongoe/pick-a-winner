@@ -41,7 +41,7 @@ export const Members = () => {
           className="w-full h-52 border border-gray-300 p-2 rounded-md"
           rows={10}
           id="name"
-          placeholder="Danh sách tham gia, nhập tên cách nhau bởi dấu phẩy"
+          placeholder="Danh sách tham gia, nhập tên cách nhau bởi dấu phẩy theo sau là dấu cách. VD: Nguyễn Văn A, Nguyễn Văn B"
           {...register("name", { required: true })}
         ></textarea>
         {errors.name && <span>This field is required</span>}
