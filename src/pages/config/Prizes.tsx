@@ -80,7 +80,7 @@ export const Prizes = () => {
           {errors.type && <span>This field is required</span>}
         </div>
 
-        <button type="submit" className="btn-primary ">
+        <button type="submit" className="btn-tertiary">
           Thêm
         </button>
       </form>

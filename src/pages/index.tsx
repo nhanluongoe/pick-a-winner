@@ -87,8 +87,8 @@ export const Home = () => {
       </div>
 
       {!currentPrizeAvailable && (
-        <button className="btn-primary" onClick={handleNextPrize}>
-          Next Prize
+        <button className="btn-tertiary" onClick={handleNextPrize}>
+          Giải tiếp theo
         </button>
       )}
 
@@ -120,7 +120,9 @@ export const Home = () => {
       </div>
 
       <div className="fixed left-12 bottom-12 text-gray-500 underline">
-        <Link to="/configuration/prizes">Cấu hình</Link>
+        <Link to="/configuration/prizes">
+          <img src="/config.svg" />
+        </Link>
       </div>
     </div>
   );

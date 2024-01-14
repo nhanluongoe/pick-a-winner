@@ -4,19 +4,23 @@
 
 @layer components {
   .btn-primary {
-   @apply uppercase bg-orange-500 rounded-md px-5 py-1 text-3xl text-white 
+    @apply uppercase bg-orange-500 rounded-md px-5 py-1 text-3xl text-white;
   }
 
   .btn-secondary {
-    @apply uppercase bg-blue-600 rounded-md px-5 py-1 text-3xl text-white 
+    @apply uppercase bg-blue-600 rounded-md px-5 py-1 text-3xl text-white;
+  }
+
+  .btn-tertiary {
+    @apply bg-green-600 rounded-md px-5 py-1 text-xl text-white;
   }
 }
 
-input[type="text"], input[type="number"] {
-  @apply border border-gray-300 rounded-md shadow-sm px-3 py-1 min-w-[500px] ;
+input[type="text"],
+input[type="number"] {
+  @apply border border-gray-300 rounded-md shadow-sm px-3 py-1 min-w-[500px];
 }
 
 button:disabled {
   @apply cursor-not-allowed bg-gray-300;
 }
-

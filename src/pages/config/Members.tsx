@@ -35,7 +35,7 @@ export const Members = () => {
   );
 
   return (
-    <div>
+    <div className="ml-12">
       <form onSubmit={handleSubmit(onSubmit)} className="mb-3">
         <textarea
           className="w-full h-52 border border-gray-300 p-2 rounded-md"
@@ -47,7 +47,7 @@ export const Members = () => {
         {errors.name && <span>This field is required</span>}
 
         <div className="w-full flex justify-center mt-3">
-          <button type="submit" className="btn-primary">
+          <button type="submit" className="btn-tertiary">
             Thêm
           </button>
         </div>
