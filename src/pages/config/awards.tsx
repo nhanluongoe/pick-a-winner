@@ -3,6 +3,7 @@ import Dialog from "../../components/dialog";
 import useAwards from "../../hooks/useAwards";
 import usePrizes from "../../hooks/usePrizes";
 import { Prize } from "../../models/prize";
+import useXlsx from "../../hooks/use-xlsx";
 
 export default function Awards() {
   const { awards } = useAwards();
@@ -11,6 +12,8 @@ export default function Awards() {
   const listOfWinners = awards.find((a) => a.prize === activePrize?.name)
     ?.members;
 
+  const { download } = useXlsx();
+
   const [open, setOpen] = useState<boolean>(false);
 
   const handleClickPrize = (prize: Prize) => {
@@ -18,15 +21,24 @@ export default function Awards() {
     setActivePrize(prize);
   };
 
+  const handleDownload = () => {
+    download(listOfWinners?.map((w) => ({name: w})), activePrize?.name ?? "export");
+  };
+
   const listOfAwards = (
     <div>
-      <p>
+      <p className="text-center text-2xl">
         {activePrize?.initialQuantity} {activePrize?.name} - {activePrize?.type}
       </p>
 
-      <div>
-        <p>Họ và Tên</p>
-        <div>{listOfWinners?.map((w) => <p key={w}>{w}</p>)}</div>
+      <div className="flex justify-center items-center flex-col mt-5">
+        <div>
+          {listOfWinners?.map((w) => (
+            <p key={w} className="text-start">
+              {w}
+            </p>
+          ))}
+        </div>
       </div>
     </div>
   );
@@ -54,6 +66,13 @@ export default function Awards() {
         rejectAction={{
           text: "Đóng",
           onClick: () => setOpen(false),
+        }}
+        okAction={{
+          text: "Xuất danh sách",
+          onClick: () => {
+            setOpen(false);
+            handleDownload();
+          },
         }}
       />
     </>

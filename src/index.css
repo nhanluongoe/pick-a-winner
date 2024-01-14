@@ -12,7 +12,11 @@
   }
 
   .btn-tertiary {
-    @apply bg-green-600 rounded-md px-5 py-1 text-xl text-white;
+    @apply bg-green-600 rounded-md px-5 py-1 text-white;
+  }
+
+  .btn-gray {
+    @apply bg-gray-500 rounded-md px-5 py-1 text-white;
   }
 
   .error-msg {

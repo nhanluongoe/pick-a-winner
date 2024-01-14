@@ -33,15 +33,29 @@ export default function Dialog(props: DialogProps) {
             <div className="AlertDialogDescription">{description}</div>
           )}
 
-          <div style={{ display: "flex", gap: 25, justifyContent: "flex-end" }}>
+          <div
+            style={{
+              display: "flex",
+              gap: 25,
+              justifyContent: "center",
+              width: "75%",
+              margin: "auto",
+            }}
+          >
             {rejectAction && (
-              <AlertDialog.Cancel asChild onClick={rejectAction.onClick}>
-                <button className="">{rejectAction.text}</button>
+              <AlertDialog.Cancel
+                asChild
+                onClick={rejectAction.onClick}
+                className="flex-1"
+              >
+                <button className="btn-gray text-center">{rejectAction.text}</button>
               </AlertDialog.Cancel>
             )}
             {okAction && (
-              <AlertDialog.Action asChild>
-                <button className="" onClick={okAction.onClick}>{okAction.text}</button>
+              <AlertDialog.Action asChild className="flex-1">
+                <button className="btn-tertiary text-center" onClick={okAction.onClick}>
+                  {okAction.text}
+                </button>
               </AlertDialog.Action>
             )}
           </div>

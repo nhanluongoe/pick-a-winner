@@ -96,7 +96,7 @@ export const Home = () => {
         className="flex items-center gap-x-1 text-3xl text-blue-500 cursor-pointer"
         onClick={handleAutoStop}
       >
-        <input type="checkbox" name="auto-stop" checked={autoStop} />
+        <input type="checkbox" name="auto-stop" checked={autoStop} readOnly />
         <label htmlFor="auto-stop">Tự động dừng</label>
       </div>
 
