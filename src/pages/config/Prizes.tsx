@@ -19,9 +19,7 @@ export const Prizes = () => {
   } = useForm<PrizeForm>();
 
   const onSubmit: SubmitHandler<PrizeForm> = (data) => {
-    console.log("submit");
-    console.log(data);
-    addPrize(data);
+    addPrize({ ...data, initialQuantity: data.quantity });
     toast.success({
       title: "Thêm thành công",
     });
@@ -42,7 +40,7 @@ export const Prizes = () => {
     <div>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col gap-5 justify-center items-center"
+        className="flex flex-col gap-8 justify-center items-center"
       >
         <div>
           <input
@@ -53,7 +51,9 @@ export const Prizes = () => {
             })}
             placeholder="Tên giải thưởng"
           ></input>
-          {errors.type && <span>This field is required</span>}
+          {errors.type && (
+            <span className="block error-msg">This field is required</span>
+          )}
         </div>
 
         <div>
@@ -65,7 +65,9 @@ export const Prizes = () => {
             })}
             placeholder="Tên phần thưởng"
           ></input>
-          {errors.type && <span>This field is required</span>}
+          {errors.type && (
+            <span className="block error-msg">This field is required</span>
+          )}
         </div>
 
         <div>
@@ -77,7 +79,9 @@ export const Prizes = () => {
             })}
             placeholder="Số lượng"
           ></input>
-          {errors.type && <span>This field is required</span>}
+          {errors.type && (
+            <span className="block error-msg">This field is required</span>
+          )}
         </div>
 
         <button type="submit" className="btn-tertiary">

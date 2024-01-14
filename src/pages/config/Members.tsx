@@ -44,7 +44,9 @@ export const Members = () => {
           placeholder="Danh sách tham gia, nhập tên cách nhau bởi dấu phẩy theo sau là dấu cách. VD: Nguyễn Văn A, Nguyễn Văn B"
           {...register("name", { required: true })}
         ></textarea>
-        {errors.name && <span>This field is required</span>}
+        {errors.name && (
+          <span className="block error-msg">This field is required</span>
+        )}
 
         <div className="w-full flex justify-center mt-3">
           <button type="submit" className="btn-tertiary">

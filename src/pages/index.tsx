@@ -6,7 +6,7 @@ import { toast } from "react-stacked-toast";
 import { Link } from "react-router-dom";
 
 const DURATION = 3 * 1000;
-const INTERVAL = 50;
+const INTERVAL = 75;
 
 export const Home = () => {
   const { members, removeMember } = useMembers();
@@ -71,7 +71,7 @@ export const Home = () => {
         {currentPrize ? (
           <>
             <p className="mb-2">
-              {currentPrize.quantity} {currentPrize.name}
+              {currentPrize.initialQuantity} {currentPrize.name}
             </p>
             <p>{currentPrize.type}</p>
           </>
