@@ -9,7 +9,7 @@ interface MemberForm {
 }
 
 export const Members = () => {
-  const { members, addMembers } = useMembers();
+  const { members, addMembers, removeMember } = useMembers();
 
   const {
     register,
@@ -22,11 +22,10 @@ export const Members = () => {
 
   const onSubmit: SubmitHandler<MemberForm> = (data) => {
     const members = data.name.split("\n").map((name) => ({ name }));
-    console.log(data);
-    addMembers(members);
     toast.success({
-      title: "Thêm thành công",
+      title: `Đã thêm ${members.length} thành viên`,
     });
+    addMembers(members);
     reset();
   };
 
@@ -37,8 +36,12 @@ export const Members = () => {
       .filter(Boolean)
       .map((name) => ({ name }));
     addMembers(members);
+  };
+
+  const handleRemoveMember = (name: string) => {
+    removeMember(name);
     toast.success({
-      title: "Thêm thành công",
+      title: `Đã xóa thành viên ${name}`,
     });
   };
 
@@ -49,6 +52,7 @@ export const Members = () => {
           <tr>
             <th className="px-4 py-2 w-[10%]">STT</th>
             <th className="px-4 py-2">Họ và tên</th>
+            <th className="px-4 py-2 w-[10%]">Thao tác</th>
           </tr>
         </thead>
 
@@ -59,6 +63,14 @@ export const Members = () => {
                 {members.indexOf(member) + 1}
               </td>
               <td className="border px-4 py-2">{member.name}</td>
+              <td className="border px-4 py-2">
+                <button
+                  className="btn-danger"
+                  onClick={() => handleRemoveMember(member.name)}
+                >
+                  Xóa
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
@@ -84,6 +96,8 @@ export const Members = () => {
           <button type="submit" className="btn-tertiary">
             Thêm
           </button>
+
+          <span className="flex items-center justify-center">Hoặc</span>
 
           <div>
             <label htmlFor="files" className="btn-gray block">

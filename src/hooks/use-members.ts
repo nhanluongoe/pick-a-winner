@@ -5,7 +5,6 @@ const useMembers = () => {
   const [members, setMembers] = useLocalStorage<Member[]>("members", []);
 
   const addMember = (member: Member) => {
-    console.log("member, ", member, members);
     setMembers((members) => [...members, member]);
   };
 

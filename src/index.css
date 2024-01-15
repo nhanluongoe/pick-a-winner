@@ -19,6 +19,10 @@
     @apply bg-gray-500 rounded-md px-5 py-1 text-white hover:bg-gray-400;
   }
 
+  .btn-danger {
+    @apply bg-red-500 rounded-md px-5 py-1 text-white hover:bg-red-400;
+  }
+
   .error-msg {
     @apply text-red-500 text-sm;
   }
@@ -34,5 +38,5 @@ input[type="number"] {
 }
 
 button:disabled {
-  @apply cursor-not-allowed bg-gray-300;
+  @apply cursor-not-allowed bg-gray-300 hover:bg-gray-300;
 }
