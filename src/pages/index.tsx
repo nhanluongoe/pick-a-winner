@@ -1,8 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import useMembers from "../hooks/use-members";
 import useAwards from "../hooks/use-awards";
 import usePrizes from "../hooks/use-prizes";
-import { toast } from "react-stacked-toast";
 import { Link, useNavigate } from "react-router-dom";
 import { shuffle } from "../utils/shuffle";
 import { Member } from "../models/member";
@@ -17,38 +16,35 @@ export const Home = () => {
 
   const mode = useMode();
 
-  const { members, removeMember, removeMembers } = useMembers();
+  const { members, removeMembers } = useMembers();
   const { updateMembers } = useAwards();
 
   const { prizes, decreaseQuantity } = usePrizes();
   const stage = useStage();
   const currentPrize = prizes[stage];
 
-  const winnerRef = useRef<string>("");
+  const batch = mode === "normal" ? currentPrize.batch : 1;
   const [shuffledWinners, setShuffledWinners] = useState<Member[]>(members);
   const winnersRef = useRef<string[]>([]);
-  const winners = shuffledWinners
-    .slice(0, currentPrize.batch)
-    .map((m) => m.name);
+  const winners = shuffledWinners.slice(0, batch).map((m) => m.name);
 
   const intervalIdRef = useRef<number>(0);
-  const [spinning, setSpinning] = useState<boolean>(false);
   const isConfigured: boolean = !!prizes.length;
+
+  const [spinning, setSpinning] = useState<boolean>(false);
+  const [autoStop, setAutoStop] = useState<boolean>(false);
+
+  const handleShuffle = () => {
+    const res = shuffle(shuffledWinners);
+    winnersRef.current = res.slice(0, batch).map((m) => m.name);
+    setShuffledWinners(res);
+  };
 
   const handlePick = () => {
     setSpinning(true);
 
-    if (members.length === 0) {
-      toast.error({
-        title: "No members available!",
-      });
-      return;
-    }
-
     intervalIdRef.current = setInterval(() => {
-      const randomIndex = Math.floor(Math.random() * members.length);
-      const randomMember = members[randomIndex];
-      winnerRef.current = randomMember.name;
+      handleShuffle();
     }, INTERVAL);
 
     if (autoStop) {
@@ -58,46 +54,16 @@ export const Home = () => {
     }
   };
 
-  const [autoStop, setAutoStop] = useState<boolean>(false);
-
-  const handleAutoStop = () => {
-    setAutoStop((prev) => !prev);
-  };
-
   const handleStop = () => {
-    setSpinning(false);
-    clearInterval(intervalIdRef.current);
-    updateMembers(currentPrize, [winnerRef.current]);
-    removeMember(winnerRef.current);
-    decreaseQuantity(currentPrize.name);
-  };
-
-  const handleShuffle = () => {
-    const res = shuffle(shuffledWinners);
-    winnersRef.current = res.slice(0, currentPrize.batch).map((m) => m.name);
-    setShuffledWinners(res);
-  };
-
-  const handlePickNormal = () => {
-    setSpinning(true);
-
-    intervalIdRef.current = setInterval(() => {
-      handleShuffle();
-    }, INTERVAL);
-
-    if (autoStop) {
-      setTimeout(() => {
-        handleStopNormal();
-      }, DURATION);
-    }
-  };
-
-  const handleStopNormal = () => {
     setSpinning(false);
     clearInterval(intervalIdRef.current);
     updateMembers(currentPrize, winnersRef.current);
     removeMembers(winnersRef.current);
-    decreaseQuantity(currentPrize.name, currentPrize.batch);
+    decreaseQuantity(currentPrize.name, batch);
+  };
+
+  const handleAutoStop = () => {
+    setAutoStop((prev) => !prev);
   };
 
   return (
@@ -118,7 +84,7 @@ export const Home = () => {
       {mode === "supplement" ? (
         <div className="w-3/4 flex justify-center items-center">
           <p className="text-8xl px-5 py-7 bg-blue-200 capitalize rounded-xl text-center text-blue-600 w-full">
-            {winnerRef.current || "???"}
+            {winners[0] || "???"}
           </p>
         </div>
       ) : (
@@ -165,7 +131,7 @@ export const Home = () => {
 
       <div className="flex w-1/3 gap-5 justify-center">
         <button
-          onClick={mode === "normal" ? handlePickNormal : handlePick}
+          onClick={handlePick}
           className="btn-primary"
           disabled={spinning}
         >
@@ -173,7 +139,7 @@ export const Home = () => {
         </button>
         {!autoStop && (
           <button
-            onClick={mode === "normal" ? handleStopNormal : handleStop}
+            onClick={handleStop}
             className="btn-secondary"
             disabled={!spinning}
           >
