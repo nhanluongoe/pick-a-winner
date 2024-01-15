@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom";
 
 interface MenuItem {
   id: string;
@@ -30,7 +29,7 @@ const menu: MenuItem[] = [
 ];
 
 export const Configuration = () => {
-  const [selected, setSelected] = useState<string>("prizes");
+  const { pathname } = useLocation();
 
   return (
     <div className="grid grid-cols-12 gap-3 h-full">
@@ -40,11 +39,8 @@ export const Configuration = () => {
             <li
               key={item.id}
               className={`${
-                selected === item.id ? "bg-gray-100" : ""
+                pathname.includes(item.id) ? "bg-gray-100" : ""
               } rounded-md`}
-              onClick={() => {
-                setSelected(item.id);
-              }}
             >
               <Link
                 to={item.path}
