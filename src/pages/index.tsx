@@ -7,6 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { shuffle } from "../utils/shuffle";
 import { Member } from "../models/member";
 import useMode from "../hooks/use-mode";
+import useStage from "../hooks/use-stage";
 
 const DURATION = 3 * 1000;
 const INTERVAL = 75;
@@ -14,14 +15,14 @@ const INTERVAL = 75;
 export const Home = () => {
   const navigate = useNavigate();
 
+  const mode = useMode();
+
   const { members, removeMember, removeMembers } = useMembers();
   const { updateMembers } = useAwards();
 
-  const mode = useMode();
-
   const { prizes, decreaseQuantity } = usePrizes();
-  const [currentPrizeIndex, setCurrentPrizeIndex] = useState<number>(0);
-  const currentPrize = prizes[currentPrizeIndex];
+  const stage = useStage();
+  const currentPrize = prizes[stage];
 
   const winnerRef = useRef<string>("");
   const [shuffledWinners, setShuffledWinners] = useState<Member[]>(members);
