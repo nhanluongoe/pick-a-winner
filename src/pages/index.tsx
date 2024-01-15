@@ -3,12 +3,14 @@ import useMembers from "../hooks/use-members";
 import useAwards from "../hooks/use-awards";
 import usePrizes from "../hooks/use-prizes";
 import { toast } from "react-stacked-toast";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const DURATION = 3 * 1000;
 const INTERVAL = 75;
 
 export const Home = () => {
+  const navigate = useNavigate();
+
   const { members, removeMember } = useMembers();
   const { updateMembers } = useAwards();
 
@@ -22,6 +24,7 @@ export const Home = () => {
 
   const intervalIdRef = useRef<number>(0);
   const [spinning, setSpinning] = useState<boolean>(false);
+  const isConfigured: boolean = !!prizes.length;
 
   const handlePick = () => {
     setSpinning(true);
@@ -86,11 +89,26 @@ export const Home = () => {
         </p>
       </div>
 
-      {!currentPrizeAvailable && (
-        <button className="btn-tertiary" onClick={handleNextPrize}>
-          Giải tiếp theo
-        </button>
-      )}
+      <div>
+        {!currentPrizeAvailable && isConfigured && (
+          <button className="btn-tertiary" onClick={handleNextPrize}>
+            Giải tiếp theo
+          </button>
+        )}
+        {!isConfigured && (
+          <>
+            <p>
+              Có vẻ như bạn chưa cấu hình giải thưởng 🤔?
+              <button
+                className="btn-tertiary mx-3"
+                onClick={() => navigate("/configuration/prizes")}
+              >
+                Cấu hình
+              </button>
+            </p>
+          </>
+        )}
+      </div>
 
       <div
         className="flex items-center gap-x-1 text-3xl text-blue-500 cursor-pointer"
