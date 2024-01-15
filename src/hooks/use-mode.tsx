@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useKeyPress } from "react-use";
 
 export default function useMode() {
-  const [mode, setMode] = useState<"normal" | "supplement">("supplement");
+  const [mode, setMode] = useState<"normal" | "supplement">("normal");
   const isCtrlPressed = useKeyPress("Shift")[0];
 
   useEffect(() => {

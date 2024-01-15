@@ -7,6 +7,7 @@ import { shuffle } from "../utils/shuffle";
 import { Member } from "../models/member";
 import useMode from "../hooks/use-mode";
 import useStage from "../hooks/use-stage";
+import { hidePrefix } from "../utils/hide-prefix";
 
 const DURATION = 3 * 1000;
 const INTERVAL = 75;
@@ -16,7 +17,7 @@ export const Home = () => {
 
   const mode = useMode();
 
-  const { members, removeMembers } = useMembers();
+  const { members, internalMembers, removeMembers } = useMembers();
   const { updateMembers } = useAwards();
 
   const { prizes, decreaseQuantity } = usePrizes();
@@ -25,8 +26,14 @@ export const Home = () => {
 
   const batch = mode === "normal" ? currentPrize.batch : 1;
   const [shuffledWinners, setShuffledWinners] = useState<Member[]>(members);
-  const winnersRef = useRef<string[]>([]);
   const winners = shuffledWinners.slice(0, batch).map((m) => m.name);
+  const [shuffledInternalWinners, setShuffledInternalWinners] =
+    useState<Member[]>(internalMembers);
+  const internalWinners = shuffledInternalWinners
+    .slice(0, batch)
+    .map((m) => m.name);
+  const winnersRef = useRef<string[]>([]);
+  const finalWinners = currentPrize.for === "all" ? winners : internalWinners;
 
   const intervalIdRef = useRef<number>(0);
   const isConfigured: boolean = !!prizes.length;
@@ -35,9 +42,15 @@ export const Home = () => {
   const [autoStop, setAutoStop] = useState<boolean>(false);
 
   const handleShuffle = () => {
-    const res = shuffle(shuffledWinners);
-    winnersRef.current = res.slice(0, batch).map((m) => m.name);
-    setShuffledWinners(res);
+    if (currentPrize.for === "all") {
+      const res = shuffle(shuffledWinners);
+      winnersRef.current = res.slice(0, batch).map((m) => m.name);
+      setShuffledWinners(res);
+    } else {
+      const res = shuffle(internalMembers);
+      winnersRef.current = res.slice(0, batch).map((m) => m.name);
+      setShuffledInternalWinners(res);
+    }
   };
 
   const handlePick = () => {
@@ -84,17 +97,17 @@ export const Home = () => {
       {mode === "supplement" ? (
         <div className="w-3/4 flex justify-center items-center">
           <p className="text-8xl px-5 py-7 bg-blue-200 capitalize rounded-xl text-center text-blue-600 w-full">
-            {winners[0] || "???"}
+            {hidePrefix(finalWinners[0]) || "???"}
           </p>
         </div>
       ) : (
         <div className="w-3/4 flex-col flex justify-center items-center bg-blue-200 rounded-xl">
-          {winners.map((w) => (
+          {finalWinners.map((w) => (
             <p
               key={w}
               className="text-5xl px-5 py-5 capitalize text-center text-blue-600 w-full block"
             >
-              {w}
+              {hidePrefix(w)}
             </p>
           ))}
         </div>

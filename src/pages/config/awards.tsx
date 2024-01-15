@@ -4,6 +4,7 @@ import useAwards from "../../hooks/use-awards";
 import usePrizes from "../../hooks/use-prizes";
 import { Prize } from "../../models/prize";
 import useXlsx from "../../hooks/use-xlsx";
+import { hidePrefix } from "../../utils/hide-prefix";
 
 export default function Awards() {
   const { awards } = useAwards();
@@ -39,7 +40,7 @@ export default function Awards() {
           <tbody>
             {listOfWinners?.map((w) => (
               <tr key={w}>
-                <td className="border px-4 py-2">{w}</td>
+                <td className="border px-4 py-2">{hidePrefix(w)}</td>
               </tr>
             ))}
           </tbody>

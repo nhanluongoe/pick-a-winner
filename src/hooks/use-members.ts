@@ -1,8 +1,13 @@
 import { Member } from "../models/member";
 import useLocalStorage from "./use-storage";
 
+const PREFIX = "DBD";
+
 const useMembers = () => {
   const [members, setMembers] = useLocalStorage<Member[]>("members", []);
+
+  const internalMembers = members.filter((m) => m.name.startsWith(PREFIX));
+  const externalMembers = members.filter((m) => !m.name.startsWith(PREFIX));
 
   const addMember = (member: Member) => {
     setMembers((members) => [...members, member]);
@@ -22,7 +27,15 @@ const useMembers = () => {
     );
   };
 
-  return { members, addMember, addMembers, removeMember, removeMembers };
+  return {
+    members,
+    internalMembers,
+    externalMembers,
+    addMember,
+    addMembers,
+    removeMember,
+    removeMembers,
+  };
 };
 
 export default useMembers;

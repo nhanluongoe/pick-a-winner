@@ -37,6 +37,7 @@ export const Prizes = () => {
             <th className="px-4 py-2">Phần thưởng</th>
             <th className="px-4 py-2">Số lượng còn lại</th>
             <th className="px-4 py-2">Số lượng</th>
+            <th className="px-4 py-2">Dành cho</th>
           </tr>
         </thead>
 
@@ -47,6 +48,9 @@ export const Prizes = () => {
               <td className="border px-4 py-2">{prize.type}</td>
               <td className="border px-4 py-2">{prize.quantity}</td>
               <td className="border px-4 py-2">{prize.initialQuantity}</td>
+              <td className="border px-4 py-2">
+                {prize.for === "all" ? "Tất cả" : "Nội bộ"}
+              </td>
             </tr>
           ))}
         </tbody>
@@ -114,7 +118,6 @@ export const Prizes = () => {
           {errors.batch && (
             <span className="block error-msg">This field is required</span>
           )}
-          
         </div>
 
         <div>
