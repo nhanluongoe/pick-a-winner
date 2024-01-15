@@ -32,7 +32,10 @@ export const Members = () => {
 
   const handleImport = (file: string | ArrayBuffer | null) => {
     if (typeof file !== "string") return;
-    const members = file.split(",").map((name) => ({ name }));
+    const members = file
+      .split("\n")
+      .filter(Boolean)
+      .map((name) => ({ name }));
     addMembers(members);
     toast.success({
       title: "Thêm thành công",
