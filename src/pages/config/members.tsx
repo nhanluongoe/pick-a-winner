@@ -21,7 +21,8 @@ export const Members = () => {
   const { importCSV } = useCSV();
 
   const onSubmit: SubmitHandler<MemberForm> = (data) => {
-    const members = data.name.split(",").map((name) => ({ name }));
+    const members = data.name.split("\n").map((name) => ({ name }));
+    console.log(data);
     addMembers(members);
     toast.success({
       title: "Thêm thành công",
@@ -65,7 +66,7 @@ export const Members = () => {
           className="w-full h-52 border border-gray-300 p-2 rounded-md"
           rows={10}
           id="name"
-          placeholder="Danh sách tham gia, nhập tên cách nhau bởi dấu phẩy. VD: Nguyễn Văn A,Nguyễn Văn B"
+          placeholder="Danh sách tham gia, mỗi người một dòng"
           {...register("name", { required: true })}
         ></textarea>
         {errors.name && (
