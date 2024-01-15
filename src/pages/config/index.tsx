@@ -61,6 +61,15 @@ export const Configuration = () => {
       <div className="col-span-9">
         <Outlet />
       </div>
+
+      <button
+        className="btn-gray fixed bottom-5 left-5"
+        onClick={() => {
+          localStorage.clear();
+        }}
+      >
+        Reset
+      </button>
     </div>
   );
 };
