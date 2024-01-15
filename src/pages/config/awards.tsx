@@ -9,9 +9,8 @@ export default function Awards() {
   const { awards } = useAwards();
   const { prizes } = usePrizes();
   const [activePrize, setActivePrize] = useState<Prize>();
-  const listOfWinners = awards.find(
-    (a) => a.prize === activePrize?.name
-  )?.members;
+  const listOfWinners = awards.find((a) => a.prize === activePrize?.name)
+    ?.members;
 
   const { download } = useXlsx();
 
@@ -25,7 +24,7 @@ export default function Awards() {
   const handleDownload = () => {
     download(
       listOfWinners?.map((w) => ({ name: w })),
-      activePrize?.name ?? "export"
+      activePrize?.name ?? "export",
     );
   };
 
