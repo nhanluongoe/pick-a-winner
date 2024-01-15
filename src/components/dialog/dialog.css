@@ -35,6 +35,8 @@ button {
 }
 
 .AlertDialogDescription {
+  max-height: 50vh;
+  overflow-y: auto;
   margin-bottom: 20px;
   font-size: 15px;
   line-height: 1.5;
