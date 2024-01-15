@@ -84,7 +84,7 @@ export const Home = () => {
       </div>
 
       <div className="w-3/4 flex justify-center items-center">
-        <p className="text-8xl p-5 bg-blue-200 capitalize rounded-xl text-center text-blue-600 w-full">
+        <p className="text-8xl px-5 py-7 bg-blue-200 capitalize rounded-xl text-center text-blue-600 w-full">
           {winner || "???"}
         </p>
       </div>
@@ -114,7 +114,7 @@ export const Home = () => {
         className="flex items-center gap-x-1 text-3xl text-blue-500 cursor-pointer"
         onClick={handleAutoStop}
       >
-        <input type="checkbox" name="auto-stop" checked={autoStop} readOnly />
+        <input type="checkbox" name="auto-stop" checked={autoStop} readOnly className="scale-150 mr-2"/>
         <label htmlFor="auto-stop">Tự động dừng</label>
       </div>
 
