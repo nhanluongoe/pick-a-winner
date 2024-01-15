@@ -58,7 +58,7 @@ export default function Awards() {
             key={prize.name}
           >
             <p className="text-center">
-              {prize.quantity} {prize.name} - {prize.type}
+              {prize.initialQuantity} {prize.name} - {prize.type}
             </p>
           </div>
         ))}
