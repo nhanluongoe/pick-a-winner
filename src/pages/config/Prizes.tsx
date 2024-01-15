@@ -27,7 +27,7 @@ export const Prizes = () => {
   };
 
   const listOfPrizes = (
-    <div className="my-3">
+    <div className="my-5">
       <table className="table-auto w-full">
         <thead>
           <tr>

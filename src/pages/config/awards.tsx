@@ -9,8 +9,9 @@ export default function Awards() {
   const { awards } = useAwards();
   const { prizes } = usePrizes();
   const [activePrize, setActivePrize] = useState<Prize>();
-  const listOfWinners = awards.find((a) => a.prize === activePrize?.name)
-    ?.members;
+  const listOfWinners = awards.find(
+    (a) => a.prize === activePrize?.name
+  )?.members;
 
   const { download } = useXlsx();
 
@@ -22,7 +23,10 @@ export default function Awards() {
   };
 
   const handleDownload = () => {
-    download(listOfWinners?.map((w) => ({name: w})), activePrize?.name ?? "export");
+    download(
+      listOfWinners?.map((w) => ({ name: w })),
+      activePrize?.name ?? "export"
+    );
   };
 
   const listOfAwards = (
@@ -31,14 +35,16 @@ export default function Awards() {
         {activePrize?.initialQuantity} {activePrize?.name} - {activePrize?.type}
       </p>
 
-      <div className="flex justify-center items-center flex-col mt-5">
-        <div>
-          {listOfWinners?.map((w) => (
-            <p key={w} className="text-start">
-              {w}
-            </p>
-          ))}
-        </div>
+      <div className="flex justify-center items-center flex-col my-8">
+        <table className="table-auto">
+          <tbody>
+            {listOfWinners?.map((w) => (
+              <tr key={w}>
+                <td className="border px-4 py-2">{w}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );

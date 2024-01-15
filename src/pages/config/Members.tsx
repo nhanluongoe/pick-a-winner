@@ -27,11 +27,23 @@ export const Members = () => {
   };
 
   const listOfMembers = (
-    <ul>
-      {members.map((member) => (
-        <li key={member.name}>{member.name}</li>
-      ))}
-    </ul>
+    <div className="my-5">
+      <table className="table-auto w-full">
+        <thead>
+          <tr>
+            <th className="px-4 py-2">Họ và tên</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {members.map((member) => (
+            <tr key={member.name}>
+              <td className="border px-4 py-2">{member.name}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 
   return (
