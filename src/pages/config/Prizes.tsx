@@ -27,13 +27,29 @@ export const Prizes = () => {
   };
 
   const listOfPrizes = (
-    <ul>
-      {prizes.map((prize) => (
-        <li key={prize.name}>
-          {prize.quantity} | {prize.name} | {prize.type}
-        </li>
-      ))}
-    </ul>
+    <div className="my-3">
+      <table className="table-auto w-full">
+        <thead>
+          <tr>
+            <th className="px-4 py-2">Giải thưởng</th>
+            <th className="px-4 py-2">Phần thưởng</th>
+            <th className="px-4 py-2">Số lượng</th>
+            <th className="px-4 py-2">Số lượng còn lại</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {prizes.map((prize) => (
+            <tr key={prize.name}>
+              <td className="border px-4 py-2">{prize.name}</td>
+              <td className="border px-4 py-2">{prize.type}</td>
+              <td className="border px-4 py-2">{prize.quantity}</td>
+              <td className="border px-4 py-2">{prize.initialQuantity}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 
   return (
