@@ -2,6 +2,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import useMembers from "../../hooks/use-members";
 
 import { toast } from "react-stacked-toast";
+import useCSV from "../../hooks/use-csv";
 
 interface MemberForm {
   name: string;
@@ -17,6 +18,8 @@ export const Members = () => {
     formState: { errors },
   } = useForm<MemberForm>();
 
+  const { importCSV } = useCSV();
+
   const onSubmit: SubmitHandler<MemberForm> = (data) => {
     const members = data.name.split(",").map((name) => ({ name }));
     addMembers(members);
@@ -24,6 +27,15 @@ export const Members = () => {
       title: "Thêm thành công",
     });
     reset();
+  };
+
+  const handleImport = (file: string | ArrayBuffer | null) => {
+    if (typeof file !== "string") return;
+    const members = file.split(",").map((name) => ({ name }));
+    addMembers(members);
+    toast.success({
+      title: "Thêm thành công",
+    });
   };
 
   const listOfMembers = (
@@ -60,10 +72,18 @@ export const Members = () => {
           <span className="block error-msg">This field is required</span>
         )}
 
-        <div className="w-full flex justify-center mt-3">
+        <div className="w-full flex justify-center mt-3 gap-3">
           <button type="submit" className="btn-tertiary">
             Thêm
           </button>
+          <input
+            type="file"
+            accept=".csv"
+            onChange={(e) => {
+              importCSV(e, handleImport);
+            }}
+            className="bg-gray-500 px-3 py-1 rounded-md text-white"
+          />
         </div>
       </form>
 
