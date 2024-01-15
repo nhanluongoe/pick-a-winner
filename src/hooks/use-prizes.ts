@@ -16,7 +16,7 @@ const usePrizes = () => {
     setPrizes((prizes) =>
       prizes.map((prize) => {
         if (prize.name === name) {
-          return { ...prize, quantity: prize.quantity -  amount};
+          return { ...prize, quantity: prize.quantity - amount };
         }
         return prize;
       }),
