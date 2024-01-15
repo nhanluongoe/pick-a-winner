@@ -12,11 +12,11 @@ const usePrizes = () => {
     setPrizes((prizes) => prizes.filter((prize) => prize.name !== name));
   };
 
-  const decreaseQuantity = (name: string) => {
+  const decreaseQuantity = (name: string, amount = 1) => {
     setPrizes((prizes) =>
       prizes.map((prize) => {
         if (prize.name === name) {
-          return { ...prize, quantity: prize.quantity - 1 };
+          return { ...prize, quantity: prize.quantity -  amount};
         }
         return prize;
       }),

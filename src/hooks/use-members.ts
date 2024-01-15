@@ -16,7 +16,13 @@ const useMembers = () => {
     setMembers((members) => members.filter((member) => member.name !== name));
   };
 
-  return { members, addMember, addMembers, removeMember };
+  const removeMembers = (names: string[]) => {
+    setMembers((members) =>
+      members.filter((member) => !names.includes(member.name)),
+    );
+  };
+
+  return { members, addMember, addMembers, removeMember, removeMembers };
 };
 
 export default useMembers;

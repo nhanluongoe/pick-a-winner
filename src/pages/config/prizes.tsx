@@ -6,6 +6,8 @@ interface PrizeForm {
   type: string;
   name: string;
   quantity: number;
+  batch: number;
+  for: "all" | "internal";
 }
 
 export const Prizes = () => {
@@ -96,6 +98,35 @@ export const Prizes = () => {
             placeholder="Số lượng"
           ></input>
           {errors.type && (
+            <span className="block error-msg">This field is required</span>
+          )}
+        </div>
+
+        <div>
+          <input
+            type="number"
+            id="batch"
+            {...register("batch", {
+              required: true,
+            })}
+            placeholder="Số lượng nhận giải 1 lần quay"
+          ></input>
+          {errors.batch && (
+            <span className="block error-msg">This field is required</span>
+          )}
+          
+        </div>
+
+        <div>
+          <select
+            {...register("for", { required: true })}
+            defaultValue="all"
+            className=""
+          >
+            <option value="all">Dành cho tất cả</option>
+            <option value="internal">Dành cho nội bộ</option>
+          </select>
+          {errors.for && (
             <span className="block error-msg">This field is required</span>
           )}
         </div>

@@ -1,9 +1,12 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import useMembers from "../hooks/use-members";
 import useAwards from "../hooks/use-awards";
 import usePrizes from "../hooks/use-prizes";
 import { toast } from "react-stacked-toast";
 import { Link, useNavigate } from "react-router-dom";
+import { shuffle } from "../utils/shuffle";
+import { Member } from "../models/member";
+import useMode from "../hooks/use-mode";
 
 const DURATION = 3 * 1000;
 const INTERVAL = 75;
@@ -11,16 +14,22 @@ const INTERVAL = 75;
 export const Home = () => {
   const navigate = useNavigate();
 
-  const { members, removeMember } = useMembers();
+  const { members, removeMember, removeMembers } = useMembers();
   const { updateMembers } = useAwards();
 
-  const [winner, setWinner] = useState<string>("");
-  const winnerRef = useRef<string>("");
+  const mode = useMode();
 
   const { prizes, decreaseQuantity } = usePrizes();
   const [currentPrizeIndex, setCurrentPrizeIndex] = useState<number>(0);
   const currentPrize = prizes[currentPrizeIndex];
-  const currentPrizeAvailable = currentPrize && currentPrize.quantity > 0;
+
+  const [winner, setWinner] = useState<string>("");
+  const winnerRef = useRef<string>("");
+  const [shuffledWinners, setShuffledWinners] = useState<Member[]>(members);
+  const winnersRef = useRef<string[]>([]);
+  const winners = shuffledWinners
+    .slice(0, currentPrize.batch)
+    .map((m) => m.name);
 
   const intervalIdRef = useRef<number>(0);
   const [spinning, setSpinning] = useState<boolean>(false);
@@ -50,10 +59,6 @@ export const Home = () => {
     }
   };
 
-  const handleNextPrize = () => {
-    setCurrentPrizeIndex((prev) => prev + 1);
-  };
-
   const [autoStop, setAutoStop] = useState<boolean>(false);
 
   const handleAutoStop = () => {
@@ -66,6 +71,34 @@ export const Home = () => {
     updateMembers(currentPrize, [winnerRef.current]);
     removeMember(winnerRef.current);
     decreaseQuantity(currentPrize.name);
+  };
+
+  const handleShuffle = () => {
+    const res = shuffle(shuffledWinners);
+    winnersRef.current = res.slice(0, currentPrize.batch).map((m) => m.name);
+    setShuffledWinners(res);
+  };
+
+  const handlePickNormal = () => {
+    setSpinning(true);
+
+    intervalIdRef.current = setInterval(() => {
+      handleShuffle();
+    }, INTERVAL);
+
+    if (autoStop) {
+      setTimeout(() => {
+        handleStopNormal();
+      }, DURATION);
+    }
+  };
+
+  const handleStopNormal = () => {
+    setSpinning(false);
+    clearInterval(intervalIdRef.current);
+    updateMembers(currentPrize, winnersRef.current);
+    removeMembers(winnersRef.current);
+    decreaseQuantity(currentPrize.name, currentPrize.batch);
   };
 
   return (
@@ -83,18 +116,27 @@ export const Home = () => {
         )}
       </div>
 
-      <div className="w-3/4 flex justify-center items-center">
-        <p className="text-8xl px-5 py-7 bg-blue-200 capitalize rounded-xl text-center text-blue-600 w-full">
-          {winner || "???"}
-        </p>
-      </div>
+      {mode === "supplement" ? (
+        <div className="w-3/4 flex justify-center items-center">
+          <p className="text-8xl px-5 py-7 bg-blue-200 capitalize rounded-xl text-center text-blue-600 w-full">
+            {winner || "???"}
+          </p>
+        </div>
+      ) : (
+        <div className="w-3/4 flex-col flex justify-center items-center bg-blue-200 rounded-xl">
+          {winners.map((w) => (
+            <p
+              key={w}
+              className="text-5xl px-5 py-5 capitalize text-center text-blue-600 w-full block"
+            >
+              {w}
+            </p>
+          ))}
+        </div>
+      )}
+      <div className="w-3/4 flex justify-center items-center">{}</div>
 
       <div>
-        {!currentPrizeAvailable && isConfigured && (
-          <button className="btn-tertiary" onClick={handleNextPrize}>
-            Giải tiếp theo
-          </button>
-        )}
         {!isConfigured && (
           <>
             <p>
@@ -114,21 +156,27 @@ export const Home = () => {
         className="flex items-center gap-x-1 text-3xl text-blue-500 cursor-pointer"
         onClick={handleAutoStop}
       >
-        <input type="checkbox" name="auto-stop" checked={autoStop} readOnly className="scale-150 mr-2"/>
+        <input
+          type="checkbox"
+          name="auto-stop"
+          checked={autoStop}
+          readOnly
+          className="scale-150 mr-2"
+        />
         <label htmlFor="auto-stop">Tự động dừng</label>
       </div>
 
       <div className="flex w-1/3 gap-5 justify-center">
         <button
-          onClick={handlePick}
+          onClick={mode === "normal" ? handlePickNormal : handlePick}
           className="btn-primary"
-          disabled={spinning || !currentPrizeAvailable}
+          disabled={spinning}
         >
-          Quay
+          Quay {mode === "supplement" ? "Bù" : ""}
         </button>
         {!autoStop && (
           <button
-            onClick={handleStop}
+            onClick={mode === "normal" ? handleStopNormal : handleStop}
             className="btn-secondary"
             disabled={!spinning}
           >
