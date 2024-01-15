@@ -5,7 +5,10 @@ export default function useCSV() {
 
   const fileReader = new FileReader();
 
-  const importCSV = (e, cb: (arg: string | ArrayBuffer | null) => void) => {
+  const importCSV = (
+    e: any,
+    cb: (arg: string | ArrayBuffer | null) => void,
+  ) => {
     const file = e.target.files[0];
 
     if (file) {
