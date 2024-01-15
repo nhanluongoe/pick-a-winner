@@ -4,8 +4,8 @@ import "./index.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { Root } from "./routes/root";
 import { Configuration } from "./pages/config";
-import { Prizes } from "./pages/config/Prizes";
-import { Members } from "./pages/config/Members";
+import { Prizes } from "./pages/config/prizes";
+import { Members } from "./pages/config/members";
 import Awards from "./pages/config/awards";
 import { Home } from "./pages";
 import { Toaster } from "react-stacked-toast";
@@ -46,5 +46,5 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <Toaster position="center" />
     <RouterProvider router={router} />
-  </React.StrictMode>,
+  </React.StrictMode>
 );

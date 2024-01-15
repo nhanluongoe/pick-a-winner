@@ -1,6 +1,6 @@
 import { Award } from "../models/award";
 import { Prize } from "../models/prize";
-import useLocalStorage from "./useStorage";
+import useLocalStorage from "./use-storage";
 
 const useAwards = () => {
   const [awards, setAwards] = useLocalStorage<Award[]>("awards", []);

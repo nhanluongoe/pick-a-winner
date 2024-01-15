@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Dialog from "../../components/dialog";
-import useAwards from "../../hooks/useAwards";
-import usePrizes from "../../hooks/usePrizes";
+import useAwards from "../../hooks/use-awards";
+import usePrizes from "../../hooks/use-prizes";
 import { Prize } from "../../models/prize";
 import useXlsx from "../../hooks/use-xlsx";
 

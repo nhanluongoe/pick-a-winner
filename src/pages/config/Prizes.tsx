@@ -1,4 +1,4 @@
-import usePrizes from "../../hooks/usePrizes";
+import usePrizes from "../../hooks/use-prizes";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { toast } from "react-stacked-toast";
 

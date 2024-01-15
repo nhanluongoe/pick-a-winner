@@ -1,5 +1,5 @@
 import { Prize } from "../models/prize";
-import useLocalStorage from "./useStorage";
+import useLocalStorage from "./use-storage";
 
 const usePrizes = () => {
   const [prizes, setPrizes] = useLocalStorage<Prize[]>("prizes", []);

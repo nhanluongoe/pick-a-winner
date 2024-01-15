@@ -1,5 +1,5 @@
 import { Member } from "../models/member";
-import useLocalStorage from "./useStorage";
+import useLocalStorage from "./use-storage";
 
 const useMembers = () => {
   const [members, setMembers] = useLocalStorage<Member[]>("members", []);

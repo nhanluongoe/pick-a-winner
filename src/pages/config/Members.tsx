@@ -1,5 +1,5 @@
 import { SubmitHandler, useForm } from "react-hook-form";
-import useMembers from "../../hooks/useMembers";
+import useMembers from "../../hooks/use-members";
 
 import { toast } from "react-stacked-toast";
 
