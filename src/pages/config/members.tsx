@@ -76,14 +76,21 @@ export const Members = () => {
           <button type="submit" className="btn-tertiary">
             Thêm
           </button>
-          <input
-            type="file"
-            accept=".csv"
-            onChange={(e) => {
-              importCSV(e, handleImport);
-            }}
-            className="bg-gray-500 px-3 py-1 rounded-md text-white"
-          />
+
+          <div>
+            <label htmlFor="files" className="btn-gray block">
+              Nhập file (.csv)
+            </label>
+            <input
+              id="files"
+              type="file"
+              accept=".csv"
+              onChange={(e) => {
+                importCSV(e, handleImport);
+              }}
+              className="bg-gray-500 px-3 py-1 rounded-md text-white border-none hidden"
+            />
+          </div>
         </div>
       </form>
 
