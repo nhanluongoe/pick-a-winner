@@ -44,6 +44,7 @@ export const Members = () => {
       <table className="table-auto w-full">
         <thead>
           <tr>
+            <th className="px-4 py-2 w-[10%]">STT</th>
             <th className="px-4 py-2">Họ và tên</th>
           </tr>
         </thead>
@@ -51,6 +52,9 @@ export const Members = () => {
         <tbody>
           {members.map((member) => (
             <tr key={member.name}>
+              <td className="border px-4 py-2">
+                {members.indexOf(member) + 1}
+              </td>
               <td className="border px-4 py-2">{member.name}</td>
             </tr>
           ))}
