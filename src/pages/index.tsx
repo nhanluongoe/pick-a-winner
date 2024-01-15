@@ -23,7 +23,6 @@ export const Home = () => {
   const [currentPrizeIndex, setCurrentPrizeIndex] = useState<number>(0);
   const currentPrize = prizes[currentPrizeIndex];
 
-  const [winner, setWinner] = useState<string>("");
   const winnerRef = useRef<string>("");
   const [shuffledWinners, setShuffledWinners] = useState<Member[]>(members);
   const winnersRef = useRef<string[]>([]);
@@ -49,7 +48,6 @@ export const Home = () => {
       const randomIndex = Math.floor(Math.random() * members.length);
       const randomMember = members[randomIndex];
       winnerRef.current = randomMember.name;
-      setWinner(randomMember.name);
     }, INTERVAL);
 
     if (autoStop) {
@@ -119,7 +117,7 @@ export const Home = () => {
       {mode === "supplement" ? (
         <div className="w-3/4 flex justify-center items-center">
           <p className="text-8xl px-5 py-7 bg-blue-200 capitalize rounded-xl text-center text-blue-600 w-full">
-            {winner || "???"}
+            {winnerRef.current || "???"}
           </p>
         </div>
       ) : (
@@ -138,17 +136,15 @@ export const Home = () => {
 
       <div>
         {!isConfigured && (
-          <>
-            <p>
-              Có vẻ như bạn chưa cấu hình giải thưởng 🤔?
-              <button
-                className="btn-tertiary mx-3"
-                onClick={() => navigate("/configuration/prizes")}
-              >
-                Cấu hình
-              </button>
-            </p>
-          </>
+          <p>
+            Có vẻ như bạn chưa cấu hình giải thưởng 🤔?
+            <button
+              className="btn-tertiary mx-3"
+              onClick={() => navigate("/configuration/prizes")}
+            >
+              Cấu hình
+            </button>
+          </p>
         )}
       </div>
 
