@@ -66,6 +66,7 @@ export const Configuration = () => {
         className="btn-gray fixed bottom-5 left-5"
         onClick={() => {
           localStorage.clear();
+          dispatchEvent(new StorageEvent("storage"));
         }}
       >
         Reset
