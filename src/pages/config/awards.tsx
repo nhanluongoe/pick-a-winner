@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import Dialog from "../../components/dialog";
 import useAwards from "../../hooks/use-awards";
 import usePrizes from "../../hooks/use-prizes";
@@ -38,10 +38,13 @@ export default function Awards() {
       <div className="flex justify-center items-center flex-col my-8">
         <table className="table-auto">
           <tbody>
-            {listOfWinners?.map((w) => (
-              <tr key={w}>
-                <td className="border px-4 py-2">{hidePrefix(w)}</td>
-              </tr>
+            {listOfWinners?.map((w, idx) => (
+              <Fragment key={w}>
+                <tr>
+                  <td className="border px-4 py-2">{idx + 1}</td>
+                  <td className="border px-4 py-2">{hidePrefix(w)}</td>
+                </tr>
+              </Fragment>
             ))}
           </tbody>
         </table>

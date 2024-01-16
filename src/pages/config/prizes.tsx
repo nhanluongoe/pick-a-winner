@@ -35,8 +35,8 @@ export const Prizes = () => {
           <tr>
             <th className="px-4 py-2">Giải thưởng</th>
             <th className="px-4 py-2">Phần thưởng</th>
-            <th className="px-4 py-2">Số lượng còn lại</th>
-            <th className="px-4 py-2">Số lượng</th>
+            <th className="px-4 py-2">Số lượng thực tế</th>
+            <th className="px-4 py-2">Số lượng ban đầu</th>
             <th className="px-4 py-2">Dành cho</th>
           </tr>
         </thead>
