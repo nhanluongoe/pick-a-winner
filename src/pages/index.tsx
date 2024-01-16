@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import useMembers from "../hooks/use-members";
 import useAwards from "../hooks/use-awards";
 import usePrizes from "../hooks/use-prizes";
@@ -10,6 +10,7 @@ import useStage from "../hooks/use-stage";
 import { hidePrefix } from "../utils/hide-prefix";
 import Confetti from "../components/confetti";
 import { useAutoStop } from "../hooks/use-auto-stop";
+import WinnerText from "../components/winner-text";
 
 const DURATION = 3 * 1000;
 const INTERVAL = 75;
@@ -19,12 +20,19 @@ export const Home = () => {
 
   const mode = useMode();
 
+  const [fancy, setFancy] = useState<boolean>(false);
+
   const { members, internalMembers, removeMembers } = useMembers();
   const { updateMembers } = useAwards();
 
   const { prizes, decreaseQuantity } = usePrizes();
   const stage = useStage();
   const currentPrize = prizes[stage];
+
+  const [hide, setHide] = useState<boolean>(true);
+  useEffect(() => {
+    setHide(true);
+  }, [stage]);
 
   const batch = mode === "normal" ? currentPrize?.batch : 1;
   const [shuffledWinners, setShuffledWinners] = useState<Member[]>(members);
@@ -59,6 +67,7 @@ export const Home = () => {
 
   const handlePick = () => {
     setSpinning(true);
+    setHide(false);
 
     intervalIdRef.current = setInterval(() => {
       handleShuffle();
@@ -72,6 +81,12 @@ export const Home = () => {
   };
 
   const handleStop = () => {
+    setFancy(true);
+    const fancyTimeout = setTimeout(() => {
+      setFancy(false);
+      clearTimeout(fancyTimeout);
+    }, 4 * 1000);
+
     setCelebrating(true);
     setSpinning(false);
     clearInterval(intervalIdRef.current);
@@ -95,21 +110,26 @@ export const Home = () => {
         )}
       </div>
 
-      <div className="relative text-shadow w-3/4 flex-col flex justify-center items-center bg-blue-100 bg-opacity-70 rounded-xl backdrop-filter backdrop-blur-sm border-blue-200 border-[5px] font-bold drop-shadow-sm">
-        {mode === "supplement" ? (
-          <p className="text-8xl px-5 py-10 capitalize rounded-xl text-center text-blue-700 w-full">
-            {hidePrefix(finalWinners[0]) || "???"}
-          </p>
-        ) : (
-          finalWinners.map((w) => (
-            <p
-              key={w}
-              className="text-5xl px-5 py-10 capitalize text-center text-blue-700 w-full block"
-            >
-              {hidePrefix(w)}
-            </p>
-          ))
-        )}
+      <div className="w-3/4 relative">
+        <div
+          className={`${
+            fancy ? "fancy" : "not-fancy"
+          } overflow-hidden relative w-full flex-col flex justify-center items-center bg-blue-100 bg-opacity-70 rounded-xl `}
+        >
+          {hide ? (
+            <img src="/anonymous.png" className="w-[300px]" />
+          ) : mode === "supplement" ? (
+            <WinnerText fontSize="4.5rem">
+              {hidePrefix(finalWinners[0])}
+            </WinnerText>
+          ) : (
+            finalWinners.map((w) => (
+              <WinnerText key={w} fontSize="3rem">
+                {hidePrefix(w)}
+              </WinnerText>
+            ))
+          )}
+        </div>
         <img
           src="/left-wing.png"
           className={`absolute -bottom-[115px] -left-[10%] w-1/6 -rotate-[20deg]`}

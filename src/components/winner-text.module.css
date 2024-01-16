@@ -1,0 +1,30 @@
+h1[data-heading] {
+  background: linear-gradient(
+    to bottom,
+    #cfc09f 22%,
+    #634f2c 24%,
+    #cfc09f 26%,
+    #cfc09f 27%,
+    #ffecb3 40%,
+    #a27606 78%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: #fff;
+  /* font-family: "Playfair Display", serif; */
+  position: relative;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+h1[data-heading]:after {
+  background: none;
+  content: attr(data-heading);
+  left: 0;
+  top: 0;
+  z-index: -1;
+  position: absolute;
+  text-shadow:
+    2px 2px 6px rgba(0, 0, 0, 0.4),
+    -2px -2px 6px rgba(0, 0, 0, 0.4);
+}
