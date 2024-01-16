@@ -2,7 +2,7 @@ import { Link, Outlet } from "react-router-dom";
 
 export const Root = () => {
   return (
-    <div className="">
+    <div className="bg-main bg-cover">
       <div className="container mx-auto p-8 h-screen flex flex-col">
         <header className="mb-12">
           <Link to="/">

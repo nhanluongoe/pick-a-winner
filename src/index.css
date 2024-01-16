@@ -4,11 +4,25 @@
 
 @layer components {
   .btn-primary {
-    @apply uppercase bg-orange-500 rounded-md px-5 py-1 text-3xl text-white hover:bg-orange-400;
+    @apply flex items-center justify-center uppercase text-3xl text-white px-8 py-1 rounded-lg;
+    border: 3px solid #ffad53;
+    background: var(
+      --Linear,
+      linear-gradient(82deg, #f0881d 15.21%, #ffad53 107.19%)
+    );
+    box-shadow: 0px 0px 10px 0px rgba(255, 255, 255, 0.7);
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   }
 
   .btn-secondary {
-    @apply uppercase bg-blue-600 rounded-md px-5 py-1 text-3xl text-white hover:bg-blue-400;
+    @apply flex items-center justify-center uppercase text-3xl text-white px-8 py-1 rounded-lg;
+    border: 3px solid #449ce4;
+    background: var(
+      --Linear,
+      linear-gradient(78deg, #1368bc 17.82%, #449ce4 109.35%, #c9e9fb 143.61%)
+    );
+    box-shadow: 0px 0px 10px 0px rgba(255, 255, 255, 0.7);
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   }
 
   .btn-tertiary {
