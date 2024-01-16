@@ -8,6 +8,7 @@ import { Member } from "../models/member";
 import useMode from "../hooks/use-mode";
 import useStage from "../hooks/use-stage";
 import { hidePrefix } from "../utils/hide-prefix";
+import Confetti from "../components/confetti";
 
 const DURATION = 3 * 1000;
 const INTERVAL = 75;
@@ -41,6 +42,8 @@ export const Home = () => {
   const [spinning, setSpinning] = useState<boolean>(false);
   const [autoStop, setAutoStop] = useState<boolean>(false);
 
+  const [celebrating, setCelebrating] = useState<boolean>(false);
+
   const handleShuffle = () => {
     if (currentPrize?.for === "all") {
       const res = shuffle(members);
@@ -68,6 +71,7 @@ export const Home = () => {
   };
 
   const handleStop = () => {
+    setCelebrating(true);
     setSpinning(false);
     clearInterval(intervalIdRef.current);
     updateMembers(currentPrize, winnersRef.current);
@@ -160,6 +164,8 @@ export const Home = () => {
           </button>
         )}
       </div>
+
+      {celebrating && <Confetti onComplete={() => setCelebrating(false)} />}
 
       <div className="fixed left-12 bottom-12 text-gray-500 underline">
         <Link to="/configuration/prizes">
