@@ -24,7 +24,7 @@ export const Home = () => {
   const stage = useStage();
   const currentPrize = prizes[stage];
 
-  const batch = mode === "normal" ? currentPrize.batch : 1;
+  const batch = mode === "normal" ? currentPrize?.batch : 1;
   const [shuffledWinners, setShuffledWinners] = useState<Member[]>(members);
   const winners = shuffledWinners.slice(0, batch).map((m) => m.name);
   const [shuffledInternalWinners, setShuffledInternalWinners] =
@@ -33,7 +33,7 @@ export const Home = () => {
     .slice(0, batch)
     .map((m) => m.name);
   const winnersRef = useRef<string[]>([]);
-  const finalWinners = currentPrize.for === "all" ? winners : internalWinners;
+  const finalWinners = currentPrize?.for === "all" ? winners : internalWinners;
 
   const intervalIdRef = useRef<number>(0);
   const isConfigured: boolean = !!prizes.length;
@@ -42,8 +42,8 @@ export const Home = () => {
   const [autoStop, setAutoStop] = useState<boolean>(false);
 
   const handleShuffle = () => {
-    if (currentPrize.for === "all") {
-      const res = shuffle(shuffledWinners);
+    if (currentPrize?.for === "all") {
+      const res = shuffle(members);
       winnersRef.current = res.slice(0, batch).map((m) => m.name);
       setShuffledWinners(res);
     } else {
