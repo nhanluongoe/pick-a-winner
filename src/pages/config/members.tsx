@@ -46,7 +46,7 @@ export const Members = () => {
   };
 
   const listOfMembers = (
-    <div className="my-5">
+    <div className="my-5 h-[60vh] overflow-auto">
       <table className="table-auto w-full">
         <thead>
           <tr>
