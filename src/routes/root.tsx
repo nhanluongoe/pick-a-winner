@@ -6,7 +6,7 @@ export const Root = () => {
   const homepage = location.pathname === "/";
 
   return (
-    <div className="bg-main bg-cover">
+    <div className={homepage ? "bg-main bg-cover" : ""}>
       <div className="container mx-auto p-8 h-screen flex flex-col">
         <header className={`mb-12 ${homepage ? "flex justify-center" : ""}`}>
           <Link to="/" className="inline-block">
