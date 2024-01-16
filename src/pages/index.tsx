@@ -118,12 +118,12 @@ export const Home = () => {
           {hide ? (
             <img src="/anonymous.png" className="w-[300px]" />
           ) : mode === "supplement" ? (
-            <WinnerText fontSize="4.5rem">
+            <WinnerText fontSize="4.5rem" blur={spinning}>
               {hidePrefix(finalWinners[0])}
             </WinnerText>
           ) : (
             finalWinners.map((w) => (
-              <WinnerText key={w} fontSize="3rem">
+              <WinnerText key={w} fontSize="3rem" blur={spinning}>
                 {hidePrefix(w)}
               </WinnerText>
             ))
