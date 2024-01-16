@@ -18,8 +18,6 @@ const INTERVAL = 75;
 export const Home = () => {
   const navigate = useNavigate();
 
-  const mode = useMode();
-
   const [fancy, setFancy] = useState<boolean>(false);
 
   const { members, internalMembers, removeMembers } = useMembers();
@@ -29,10 +27,11 @@ export const Home = () => {
   const stage = useStage();
   const currentPrize = prizes[stage];
 
+  const mode = useMode();
   const [hide, setHide] = useState<boolean>(true);
   useEffect(() => {
     setHide(true);
-  }, [stage]);
+  }, [stage, mode]);
 
   const batch = mode === "normal" ? currentPrize?.batch : 1;
   const [shuffledWinners, setShuffledWinners] = useState<Member[]>(members);
