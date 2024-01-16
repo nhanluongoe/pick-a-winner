@@ -175,7 +175,7 @@ export const Home = () => {
 
       {celebrating && <Confetti onComplete={() => setCelebrating(false)} />}
 
-      <div className="fixed left-12 bottom-12 text-gray-500 underline">
+      <div className="fixed left-12 bottom-12 text-gray-500 underline opacity-0">
         <Link to="/configuration/prizes">
           <img src="/config.svg" />
         </Link>
