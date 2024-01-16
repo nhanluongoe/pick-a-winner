@@ -95,25 +95,30 @@ export const Home = () => {
         )}
       </div>
 
-      {mode === "supplement" ? (
-        <div className="text-shadow w-3/4 flex-col flex justify-center items-center bg-blue-100 bg-opacity-70 rounded-xl backdrop-filter backdrop-blur-sm border-blue-200 border-[5px] font-bold drop-shadow-sm">
+      <div className="relative text-shadow w-3/4 flex-col flex justify-center items-center bg-blue-100 bg-opacity-70 rounded-xl backdrop-filter backdrop-blur-sm border-blue-200 border-[5px] font-bold drop-shadow-sm">
+        {mode === "supplement" ? (
           <p className="text-8xl px-5 py-10 capitalize rounded-xl text-center text-blue-700 w-full">
             {hidePrefix(finalWinners[0]) || "???"}
           </p>
-        </div>
-      ) : (
-        <div className="text-shadow w-3/4 flex-col flex justify-center items-center bg-blue-100 bg-opacity-70 rounded-xl backdrop-filter backdrop-blur-sm border-blue-200 border-[5px] font-bold drop-shadow-sm">
-          {finalWinners.map((w) => (
+        ) : (
+          finalWinners.map((w) => (
             <p
               key={w}
               className="text-5xl px-5 py-10 capitalize text-center text-blue-700 w-full block"
             >
               {hidePrefix(w)}
             </p>
-          ))}
-        </div>
-      )}
-      <div className="w-3/4 flex justify-center items-center">{}</div>
+          ))
+        )}
+        <img
+          src="/left-wing.png"
+          className={`absolute -bottom-[115px] -left-[10%] w-1/6 -rotate-[20deg]`}
+        />
+        <img
+          src="/right-wing.png"
+          className="absolute -right-[10%] -bottom-[115px] w-1/6 rotate-[20deg]"
+        />
+      </div>
 
       <div>
         {!isConfigured && (
