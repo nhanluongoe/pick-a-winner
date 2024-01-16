@@ -11,7 +11,8 @@ export default function Confetti(props: ConfettiProps) {
 
   return (
     <ReactConfetti
-      numberOfPieces={500}
+      colors={["#ffec0d", "#fff941", "#feff86", "#d1a300", "#fcffc1"]}
+      numberOfPieces={1000}
       width={width}
       height={height}
       recycle={false}
