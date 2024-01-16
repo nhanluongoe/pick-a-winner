@@ -9,6 +9,7 @@ import useMode from "../hooks/use-mode";
 import useStage from "../hooks/use-stage";
 import { hidePrefix } from "../utils/hide-prefix";
 import Confetti from "../components/confetti";
+import { useAutoStop } from "../hooks/use-auto-stop";
 
 const DURATION = 3 * 1000;
 const INTERVAL = 75;
@@ -40,7 +41,7 @@ export const Home = () => {
   const isConfigured: boolean = !!prizes.length;
 
   const [spinning, setSpinning] = useState<boolean>(false);
-  const [autoStop, setAutoStop] = useState<boolean>(false);
+  const autoStop = useAutoStop();
 
   const [celebrating, setCelebrating] = useState<boolean>(false);
 
@@ -77,10 +78,6 @@ export const Home = () => {
     updateMembers(currentPrize, winnersRef.current);
     removeMembers(winnersRef.current);
     decreaseQuantity(currentPrize.name, batch);
-  };
-
-  const handleAutoStop = () => {
-    setAutoStop((prev) => !prev);
   };
 
   return (
@@ -130,20 +127,6 @@ export const Home = () => {
             </button>
           </p>
         )}
-      </div>
-
-      <div
-        className="flex items-center gap-x-1 text-3xl text-blue-500 cursor-pointer"
-        onClick={handleAutoStop}
-      >
-        <input
-          type="checkbox"
-          name="auto-stop"
-          checked={autoStop}
-          readOnly
-          className="scale-150 mr-2"
-        />
-        <label htmlFor="auto-stop">Tự động dừng</label>
       </div>
 
       <div className="flex w-1/3 gap-5 justify-center">
