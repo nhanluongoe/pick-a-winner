@@ -82,13 +82,13 @@ export const Home = () => {
 
   return (
     <div className="h-full flex flex-col justify-around items-center">
-      <div className="text-center uppercase text-5xl text-blue-600">
+      <div className="text-center uppercase text-5xl text-white">
         {currentPrize ? (
           <>
-            <p className="mb-2">
+            <p className="mb-2 text-3xl">
               {currentPrize.initialQuantity} {currentPrize.name}
             </p>
-            <p>{currentPrize.type}</p>
+            <p className="text-6xl">{currentPrize.type}</p>
           </>
         ) : (
           <p>{"?"}</p>
@@ -96,17 +96,17 @@ export const Home = () => {
       </div>
 
       {mode === "supplement" ? (
-        <div className="w-3/4 flex justify-center items-center">
-          <p className="text-8xl px-5 py-7 bg-blue-200 capitalize rounded-xl text-center text-blue-600 w-full">
+        <div className="text-shadow w-3/4 flex-col flex justify-center items-center bg-blue-100 bg-opacity-70 rounded-xl backdrop-filter backdrop-blur-sm border-blue-200 border-[5px] font-bold drop-shadow-sm">
+          <p className="text-8xl px-5 py-10 capitalize rounded-xl text-center text-blue-700 w-full">
             {hidePrefix(finalWinners[0]) || "???"}
           </p>
         </div>
       ) : (
-        <div className="w-3/4 flex-col flex justify-center items-center bg-blue-200 rounded-xl">
+        <div className="text-shadow w-3/4 flex-col flex justify-center items-center bg-blue-100 bg-opacity-70 rounded-xl backdrop-filter backdrop-blur-sm border-blue-200 border-[5px] font-bold drop-shadow-sm">
           {finalWinners.map((w) => (
             <p
               key={w}
-              className="text-5xl px-5 py-5 capitalize text-center text-blue-600 w-full block"
+              className="text-5xl px-5 py-10 capitalize text-center text-blue-700 w-full block"
             >
               {hidePrefix(w)}
             </p>
@@ -135,7 +135,7 @@ export const Home = () => {
           className="btn-primary"
           disabled={spinning}
         >
-          Quay {mode === "supplement" ? "Bù" : ""}
+          Quay {mode === "supplement" ? "Bổ Sung" : ""}
         </button>
         {!autoStop && (
           <button
