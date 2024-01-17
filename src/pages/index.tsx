@@ -10,8 +10,8 @@ import useStage from "../hooks/use-stage";
 import { hidePrefix } from "../utils/hide-prefix";
 import Confetti from "../components/confetti";
 import { useAutoStop } from "../hooks/use-auto-stop";
-import WinnerText from "../components/winner-text";
 import { useSound } from "../hooks/use-sound";
+import WinnerText from "../components/winner-text";
 
 const DURATION = 3 * 1000;
 const INTERVAL = 75;
@@ -98,7 +98,7 @@ export const Home = () => {
     const fancyTimeout = setTimeout(() => {
       setFancy(false);
       clearTimeout(fancyTimeout);
-    }, 4 * 1000);
+    }, 6 * 1000);
 
     stopSpinningSound();
     playEndSound();
