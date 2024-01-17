@@ -12,6 +12,7 @@ import Confetti from "../components/confetti";
 import { useAutoStop } from "../hooks/use-auto-stop";
 import { useSound } from "../hooks/use-sound";
 import WinnerText from "../components/winner-text";
+import { useMedal } from "../hooks/use-medal";
 
 const DURATION = 5 * 1000;
 const INTERVAL = 75;
@@ -31,6 +32,8 @@ export const Home = () => {
     playLongSpinningSound,
     stopLongSpinningSound,
   } = useSound();
+
+  const medal = useMedal();
 
   const [fancy, setFancy] = useState<boolean>(false);
 
@@ -133,6 +136,9 @@ export const Home = () => {
               {currentPrize.initialQuantity} {currentPrize.name}
             </p>
             <p className="text-6xl">{currentPrize.type}</p>
+            {!medal && (
+              <p className="text-xl mt-2">Đã quay {currentPrize.initialQuantity - currentPrize.quantity} lượt</p>
+            )}
           </>
         ) : (
           <p>{"?"}</p>
@@ -168,12 +174,16 @@ export const Home = () => {
           className="absolute -right-[10%] -bottom-[115px] w-1/6 rotate-[20deg]"
         />
 
+        {medal && (
         <div className="w-[70%] absolute -bottom-[140px] left-1/2 -translate-x-1/2">
           <img src="/medal-5.png" className="" />
           <p className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 text-[#273c75] font-bold text-5xl text-shadow">
             {currentPrize?.initialQuantity - currentPrize?.quantity}
           </p>
         </div>
+        )
+          
+        }
       </div>
 
       <div className="text-white">
