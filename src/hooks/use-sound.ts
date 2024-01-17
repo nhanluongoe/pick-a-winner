@@ -3,17 +3,18 @@ import { useAudio } from "react-use";
 export const useSound = () => {
   const [endAudio, , endControls] = useAudio({
     src: "/sound/end.mp3",
-    autoPlay: true,
   });
 
   const [startAudio, , startControls] = useAudio({
     src: "/sound/start.mp3",
-    autoPlay: true,
   });
 
   const [spinningAudio, , spinningControls, spinningRef] = useAudio({
     src: "/sound/spinning.mp3",
-    autoPlay: true,
+  });
+
+  const [longSpinningAudio, , longSpinningControls] = useAudio({
+    src: "/sound/long-spinning.mp3",
   });
 
   const playStartSound = () => {
@@ -30,6 +31,14 @@ export const useSound = () => {
     endControls.pause();
   };
 
+  const playLongSpinningSound = () => {
+    longSpinningControls.play();
+  };
+  const stopLongSpinningSound = () => {
+    longSpinningControls.pause();
+    longSpinningControls.seek(0);
+  };
+
   const playSpinningSound = () => {
     spinningControls.play();
     if (spinningRef.current) {
@@ -38,6 +47,7 @@ export const useSound = () => {
   };
   const stopSpinningSound = () => {
     spinningControls.pause();
+    spinningControls.seek(0);
   };
 
   return {
@@ -50,5 +60,8 @@ export const useSound = () => {
     endAudio,
     startAudio,
     spinningAudio,
+    longSpinningAudio,
+    playLongSpinningSound,
+    stopLongSpinningSound,
   };
 };

@@ -13,7 +13,7 @@ import { useAutoStop } from "../hooks/use-auto-stop";
 import { useSound } from "../hooks/use-sound";
 import WinnerText from "../components/winner-text";
 
-const DURATION = 3 * 1000;
+const DURATION = 5 * 1000;
 const INTERVAL = 75;
 
 export const Home = () => {
@@ -27,6 +27,9 @@ export const Home = () => {
     startAudio,
     endAudio,
     spinningAudio,
+    longSpinningAudio,
+    playLongSpinningSound,
+    stopLongSpinningSound,
   } = useSound();
 
   const [fancy, setFancy] = useState<boolean>(false);
@@ -80,7 +83,12 @@ export const Home = () => {
     setHide(false);
 
     playStartSound();
-    playSpinningSound();
+
+    if (autoStop) {
+      playSpinningSound();
+    } else {
+      playLongSpinningSound();
+    }
 
     intervalIdRef.current = setInterval(() => {
       handleShuffle();
@@ -100,7 +108,12 @@ export const Home = () => {
       clearTimeout(fancyTimeout);
     }, 6 * 1000);
 
-    stopSpinningSound();
+    if (autoStop) {
+      stopSpinningSound();
+    } else {
+      stopLongSpinningSound();
+    }
+
     playEndSound();
 
     setCelebrating(true);
@@ -194,6 +207,7 @@ export const Home = () => {
       {startAudio}
       {spinningAudio}
       {endAudio}
+      {longSpinningAudio}
 
       <div className="fixed left-12 bottom-12 text-gray-500 underline opacity-0">
         <Link to="/configuration/prizes">
