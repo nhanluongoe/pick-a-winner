@@ -6,6 +6,11 @@ export default {
       backgroundImage: {
         main: "url('/bg.png')",
       },
+      fontFamily: {
+        manrope: ["Manrope", "sans-serif"],
+        montserrat: ["Montserrat", "sans-serif"],
+        lemon: ["Lemon", "cursive"],
+      }
     },
   },
   plugins: [],

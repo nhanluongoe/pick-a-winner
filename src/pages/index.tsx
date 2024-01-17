@@ -113,10 +113,10 @@ export const Home = () => {
 
   return (
     <div className="h-full flex flex-col justify-around items-center">
-      <div className="text-center uppercase text-5xl text-white">
+      <div className="text-center uppercase text-5xl text-white font-manrope">
         {currentPrize ? (
           <>
-            <p className="mb-2 text-3xl">
+            <p className="mb-6 text-3xl">
               {currentPrize.initialQuantity} {currentPrize.name}
             </p>
             <p className="text-6xl">{currentPrize.type}</p>
@@ -126,7 +126,7 @@ export const Home = () => {
         )}
       </div>
 
-      <div className="w-3/4 relative">
+      <div className="w-3/4 relative font-manrope">
         <div
           className={`${
             fancy ? "fancy" : "not-fancy"
@@ -135,12 +135,12 @@ export const Home = () => {
           {hide ? (
             <img src="/anonymous.png" className="w-[300px]" />
           ) : mode === "supplement" ? (
-            <WinnerText fontSize="4.5rem" blur={spinning}>
+            <WinnerText fontSize="4.5rem">
               {hidePrefix(finalWinners[0])}
             </WinnerText>
           ) : (
             finalWinners.map((w) => (
-              <WinnerText key={w} fontSize="3rem" blur={spinning}>
+              <WinnerText key={w} fontSize="3rem">
                 {hidePrefix(w)}
               </WinnerText>
             ))
@@ -156,7 +156,7 @@ export const Home = () => {
         />
       </div>
 
-      <div>
+      <div className="text-white">
         {!isConfigured && (
           <p>
             Có vẻ như bạn chưa cấu hình giải thưởng 🤔?
