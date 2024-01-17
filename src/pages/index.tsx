@@ -126,7 +126,7 @@ export const Home = () => {
 
   return (
     <div className="h-full flex flex-col justify-around items-center">
-      <div className="text-center uppercase text-5xl text-white font-manrope">
+      <div className="text-center uppercase text-5xl text-white font-manrope font-bold">
         {currentPrize ? (
           <>
             <p className="mb-6 text-3xl">
@@ -143,17 +143,17 @@ export const Home = () => {
         <div
           className={`${
             fancy ? "fancy" : "not-fancy"
-          } overflow-hidden relative w-full flex-col flex justify-center items-center bg-blue-100 bg-opacity-70 rounded-xl `}
+          } overflow-hidden relative w-full flex-col flex justify-center items-center bg-blue-100 bg-opacity-70 rounded-xl !py-5`}
         >
           {hide ? (
             <img src="/anonymous.png" className="w-[300px]" />
           ) : mode === "supplement" ? (
-            <WinnerText fontSize="3.8rem">
+            <WinnerText fontSize="3rem">
               {hidePrefix(finalWinners[0])}
             </WinnerText>
           ) : (
             finalWinners.map((w) => (
-              <WinnerText key={w} fontSize="3.5rem">
+              <WinnerText key={w} fontSize="3rem">
                 {hidePrefix(w)}
               </WinnerText>
             ))
@@ -167,6 +167,13 @@ export const Home = () => {
           src="/right-wing.png"
           className="absolute -right-[10%] -bottom-[115px] w-1/6 rotate-[20deg]"
         />
+
+        <div className="w-[70%] absolute -bottom-[140px] left-1/2 -translate-x-1/2">
+          <img src="/medal-5.png" className="" />
+          <p className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 text-[#273c75] font-bold text-5xl text-shadow">
+            {currentPrize?.initialQuantity - currentPrize?.quantity}
+          </p>
+        </div>
       </div>
 
       <div className="text-white">
@@ -183,7 +190,7 @@ export const Home = () => {
         )}
       </div>
 
-      <div className="flex w-1/3 gap-5 justify-center">
+      <div className="flex w-1/3 gap-5 justify-center mt-12">
         <button
           onClick={handlePick}
           className="btn-primary"

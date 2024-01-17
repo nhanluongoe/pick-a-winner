@@ -8,7 +8,7 @@ export const Root = () => {
   return (
     <div className={homepage ? "bg-main bg-cover" : ""}>
       <div className="container mx-auto p-8 h-screen flex flex-col">
-        <header className={`mb-12 ${homepage ? "flex justify-center" : ""}`}>
+        <header className={`mb-3 ${homepage ? "flex justify-center" : ""}`}>
           <Link to="/" className="inline-block">
             <img src="/logo-sc.png" width="250px" />
           </Link>

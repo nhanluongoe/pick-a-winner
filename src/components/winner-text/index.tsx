@@ -14,7 +14,7 @@ export default function WinnerText(props: WinnerTextProps) {
     <div
       className={`${
         blur ? "blur-md" : ""
-      } px-5 py-5 transition-all duration-700`}
+      } px-5 py-3 transition-all duration-700`}
     >
       <h1
         data-heading={children}
