@@ -148,12 +148,12 @@ export const Home = () => {
           {hide ? (
             <img src="/anonymous.png" className="w-[300px]" />
           ) : mode === "supplement" ? (
-            <WinnerText fontSize="4.5rem">
+            <WinnerText fontSize="3.8rem">
               {hidePrefix(finalWinners[0])}
             </WinnerText>
           ) : (
             finalWinners.map((w) => (
-              <WinnerText key={w} fontSize="3rem">
+              <WinnerText key={w} fontSize="3.5rem">
                 {hidePrefix(w)}
               </WinnerText>
             ))
