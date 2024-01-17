@@ -116,6 +116,18 @@ export const Members = () => {
         </div>
       </form>
 
+      {members.length > 0 && (
+        <button
+          className="btn-danger"
+          onClick={() => {
+            localStorage.removeItem("members");
+            dispatchEvent(new StorageEvent("storage"));
+          }}
+        >
+          Xoá tất cả
+        </button>
+      )}
+
       {listOfMembers}
     </div>
   );

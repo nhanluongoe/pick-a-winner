@@ -59,7 +59,7 @@ export const Prizes = () => {
   );
 
   return (
-    <div>
+    <div className="ml-12">
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col gap-8 justify-center items-center"
@@ -138,6 +138,18 @@ export const Prizes = () => {
           Thêm
         </button>
       </form>
+
+      {prizes.length > 0 && (
+        <button
+          className="btn-danger"
+          onClick={() => {
+            localStorage.removeItem("prizes");
+            dispatchEvent(new StorageEvent("storage"));
+          }}
+        >
+          Xoá tất cả
+        </button>
+      )}
 
       <div>{listOfPrizes}</div>
     </div>
