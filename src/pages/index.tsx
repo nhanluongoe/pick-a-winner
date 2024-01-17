@@ -11,12 +11,23 @@ import { hidePrefix } from "../utils/hide-prefix";
 import Confetti from "../components/confetti";
 import { useAutoStop } from "../hooks/use-auto-stop";
 import WinnerText from "../components/winner-text";
+import { useSound } from "../hooks/use-sound";
 
 const DURATION = 3 * 1000;
 const INTERVAL = 75;
 
 export const Home = () => {
   const navigate = useNavigate();
+
+  const {
+    playStartSound,
+    playSpinningSound,
+    stopSpinningSound,
+    playEndSound,
+    startAudio,
+    endAudio,
+    spinningAudio,
+  } = useSound();
 
   const [fancy, setFancy] = useState<boolean>(false);
 
@@ -68,6 +79,9 @@ export const Home = () => {
     setSpinning(true);
     setHide(false);
 
+    playStartSound();
+    playSpinningSound();
+
     intervalIdRef.current = setInterval(() => {
       handleShuffle();
     }, INTERVAL);
@@ -85,6 +99,9 @@ export const Home = () => {
       setFancy(false);
       clearTimeout(fancyTimeout);
     }, 4 * 1000);
+
+    stopSpinningSound();
+    playEndSound();
 
     setCelebrating(true);
     setSpinning(false);
@@ -173,6 +190,10 @@ export const Home = () => {
       </div>
 
       {celebrating && <Confetti onComplete={() => setCelebrating(false)} />}
+
+      {startAudio}
+      {spinningAudio}
+      {endAudio}
 
       <div className="fixed left-12 bottom-12 text-gray-500 underline opacity-0">
         <Link to="/configuration/prizes">
