@@ -10,6 +10,7 @@ An application to pick a winner for Sacombank 2023 year-end party.
 - Two roll modes: normal rolling and supplement rolling mode (in case the winner is absent).
 - Two stop modes: manually stop and automatically stop.
 - Hotkey to toggle roll mode, stop mode, and navigate between prizes.
+- Data is stored in the local storage. Data is synced between tabs in real-time (no need to perform a page refresh to get the latest data).
 
 ## Get started
 
