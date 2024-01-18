@@ -13,6 +13,7 @@ import { useAutoStop } from "../hooks/use-auto-stop";
 import { useSound } from "../hooks/use-sound";
 import WinnerText from "../components/winner-text";
 import { useMedal } from "../hooks/use-medal";
+import toast from "react-stacked-toast";
 
 const DURATION = 5 * 1000;
 const INTERVAL = 75;
@@ -82,6 +83,13 @@ export const Home = () => {
   };
 
   const handlePick = () => {
+    if (members.length === 0) {
+      toast.error({
+        title: "Không có người tham dự nào cả 😢",
+      });
+      return;
+    }
+
     setSpinning(true);
     setHide(false);
 
@@ -137,7 +145,10 @@ export const Home = () => {
             </p>
             <p className="text-6xl">{currentPrize.type}</p>
             {!medal && (
-              <p className="text-xl mt-2">Đã quay {currentPrize.initialQuantity - currentPrize.quantity} lượt</p>
+              <p className="text-xl mt-2">
+                Đã quay {currentPrize.initialQuantity - currentPrize.quantity}{" "}
+                lượt
+              </p>
             )}
           </>
         ) : (
@@ -155,12 +166,12 @@ export const Home = () => {
             <img src="/anonymous.png" className="w-[300px]" />
           ) : mode === "supplement" ? (
             <WinnerText fontSize="3rem">
-              {hidePrefix(finalWinners[0])}
+              {hidePrefix(finalWinners[0] ?? "")}
             </WinnerText>
           ) : (
             finalWinners.map((w) => (
               <WinnerText key={w} fontSize="3rem">
-                {hidePrefix(w)}
+                {hidePrefix(w ?? "")}
               </WinnerText>
             ))
           )}
@@ -175,15 +186,13 @@ export const Home = () => {
         />
 
         {medal && (
-        <div className="w-[70%] absolute -bottom-[140px] left-1/2 -translate-x-1/2">
-          <img src="/medal-5.png" className="" />
-          <p className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 text-[#273c75] font-bold text-5xl text-shadow">
-            {currentPrize?.initialQuantity - currentPrize?.quantity}
-          </p>
-        </div>
-        )
-          
-        }
+          <div className="w-[70%] absolute -bottom-[140px] left-1/2 -translate-x-1/2">
+            <img src="/medal-5.png" className="" />
+            <p className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 text-[#273c75] font-bold text-5xl text-shadow">
+              {currentPrize?.initialQuantity - currentPrize?.quantity}
+            </p>
+          </div>
+        )}
       </div>
 
       <div className="text-white">
