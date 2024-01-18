@@ -1,3 +1,4 @@
-export const hidePrefix = (name: string) => {
-  return name.replace("DBD_", ""); 
-}
+export const hidePrefix = (name?: string) => {
+  if (!name) return;
+  return name.replace("DBD_", "");
+};
