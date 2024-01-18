@@ -13,7 +13,7 @@ export const useSound = () => {
     src: "/sound/spinning.mp3",
   });
 
-  const [longSpinningAudio, , longSpinningControls] = useAudio({
+  const [longSpinningAudio, , longSpinningControls, longSpinningRef] = useAudio({
     src: "/sound/long-spinning.mp3",
   });
 
@@ -33,6 +33,9 @@ export const useSound = () => {
 
   const playLongSpinningSound = () => {
     longSpinningControls.play();
+    if (longSpinningRef.current) {
+      longSpinningRef.current.loop = true;
+    }
   };
   const stopLongSpinningSound = () => {
     longSpinningControls.pause();
